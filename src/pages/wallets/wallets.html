@@ -1,0 +1,15 @@
+<ion-header>
+    <ion-toolbar  color="primary">
+        <ion-title>Pénztárcák</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content color="light">
+    <ion-card *ngFor="let wallet of wallets">
+        <ion-card-title>
+            {{wallet.name}}
+        </ion-card-title>
+        <ion-card-content>
+            {{wallet.currentAmount}}
+        </ion-card-content>
+    </ion-card>
+</ion-content>
