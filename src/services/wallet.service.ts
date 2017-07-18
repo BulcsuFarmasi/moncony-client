@@ -13,7 +13,7 @@ export class WalletService{
     constructor(private http:Http){}
 
     addWallet (wallet:Wallet):Observable<Wallet> {
-        return this.http.post(`${this.apiUrl}/`,wallet)
+        return this.http.post(`${this.apiUrl}/`, wallet)
             .map((response:Response) => response.json());
     }
 

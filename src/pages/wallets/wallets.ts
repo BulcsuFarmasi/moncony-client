@@ -43,7 +43,8 @@ export class WalletsPage implements OnInit {
                 {
                    text: 'Hozzáadás',
                    handler:wallet => {
-                       this.walletService.addWallet(wallet);
+                       this.walletService.addWallet(wallet)
+                           .subscribe(wallet => this.wallets.push(wallet));
                    }
                 }
             ]
