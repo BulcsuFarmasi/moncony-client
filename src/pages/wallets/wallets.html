@@ -11,7 +11,7 @@
         <ion-card-content>
             {{wallet.currentAmount}}
             <ion-buttons>
-                <button ion-button  color="secondary">Szereksztés</button>
+                <button ion-button  color="secondary" (click)="modifyWallet(wallet)">Szerkesztés</button>
                 <button ion-button color="danger" (click)="deleteWallet(wallet)">Törlés</button>
             </ion-buttons>
         </ion-card-content>

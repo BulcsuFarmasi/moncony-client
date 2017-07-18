@@ -27,7 +27,7 @@ export class WalletService{
             .map((response:Response) => response.json());
     }
 
-    modifyWallet (wallet:Wallet):Observable<Wallet[]>{
+    modifyWallet (wallet:Wallet):Observable<Wallet>{
         return this.http.put(`${this.apiUrl}/${wallet.id}`, wallet)
             .map((response:Response) => response.json());
     }

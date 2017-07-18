@@ -23,7 +23,7 @@ export class WalletsPage implements OnInit {
     addWallet() {
         let prompt = this.alertController.create({
             title: 'Új pénztárca',
-            message: 'Írd be az új pénztárca nevét',
+            message: 'Írd be az új pénztárca adatait',
             inputs: [
                 {
                     name: 'name',
@@ -55,6 +55,36 @@ export class WalletsPage implements OnInit {
     getWallets() {
         this.walletService.getWallets()
             .subscribe((wallets:Wallet[]) => this.wallets = wallets);
+    }
+
+    modifyWallet(wallet:Wallet) {
+        let prompt = this.alertController.create({
+            title: `${wallet.name} szerkestése`,
+            message: 'Írd be a pénztárca új nevét',
+            inputs: [
+                {
+                    name: 'name',
+                    placeholder: 'Név'
+                }
+            ],
+            buttons:[
+                {
+                    text: 'Mégse',
+                    role:'cancel'
+                },
+                {
+                    text: 'Szerkesztés',
+                    handler:promptWallet => {
+                        let sendWallet = wallet;
+                        sendWallet.name = promptWallet.name;
+                        sendWallet.currentAmount = 0;
+                        this.walletService.modifyWallet(sendWallet)
+                            .subscribe(responseWallet => wallet = responseWallet);
+                    }
+                }
+            ]
+        });
+        prompt.present();
     }
 
 
