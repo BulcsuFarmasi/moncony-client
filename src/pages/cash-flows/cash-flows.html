@@ -6,3 +6,22 @@
         <ion-title>{{wallet.name}}</ion-title>
     </ion-navbar>
 </ion-header>
+<ion-content>
+    Jelenlegi összeg: {{wallet.amount}}
+    <ion-card *ngFor="let cashFlow of cashFlows; let i=index">
+        <ion-card-header>
+            <ion-card-title>{{ cashFlow.date | date: 'y.MM.dd. HH:mm:ss' }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p>{{ cashFlow.text }}</p>
+            <p>{{ cashFlow.amount }}</p>
+            <ion-buttons>
+                <button ion-button color="secondary" (click)="modifyCashFlow(i)">Szerkesztés</button>
+                <button ion-button color="danger" (click)="deleteCashFlow(i)">Törlés</button>
+            </ion-buttons>
+        </ion-card-content>
+    </ion-card>
+    <ion-fab bottom right>
+        <button ion-fab color="secondary" (click)="addCashFlow()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+</ion-content>
