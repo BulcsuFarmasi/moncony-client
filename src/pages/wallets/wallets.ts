@@ -84,7 +84,7 @@ export class WalletsPage implements OnInit {
     }
 
     goToCashFlows(wallet:Wallet) {
-        this.navController.push(CashFlowsPage, wallet);
+        this.navController.push(CashFlowsPage, {wallet: wallet});
     }
 
     modifyWallet(wallet:Wallet) {
