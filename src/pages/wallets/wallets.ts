@@ -30,7 +30,7 @@ export class WalletsPage implements OnInit {
                     placeholder: 'Név'
                 },
                 {
-                    name:'currentAmount',
+                    name:'amount',
                     placeholder: 'Kezdő összeg',
                     type: 'number'
                 }
@@ -50,6 +50,27 @@ export class WalletsPage implements OnInit {
             ]
         });
         prompt.present();
+    }
+
+    deleteWallet(wallet:Wallet, index:number) {
+        let confirm = this.alertController.create({
+            title: `${wallet.name} törlése`,
+            message: 'Biztos hogy törlöni akarod ezt a pénztárcát?',
+            buttons:[
+                {
+                    'text': 'Mégse',
+                    'role': 'cancel'
+                },
+                {
+                    'text': 'Törlés',
+                    'handler': () => {
+                        this.walletService.deleteWallet(wallet.id)
+                            .subscribe(() => this.wallets.splice(index, 1));
+                    }
+                }
+            ]
+        })
+        confirm.present();
     }
 
     getWallets() {
@@ -77,7 +98,7 @@ export class WalletsPage implements OnInit {
                     handler:promptWallet => {
                         let sendWallet = wallet;
                         sendWallet.name = promptWallet.name;
-                        sendWallet.currentAmount = 0;
+                        sendWallet.amount = 0;
                         this.walletService.modifyWallet(sendWallet)
                             .subscribe(responseWallet => wallet = responseWallet);
                     }

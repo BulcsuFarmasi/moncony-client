@@ -4,15 +4,15 @@
     </ion-toolbar>
 </ion-header>
 <ion-content color="light">
-    <ion-card *ngFor="let wallet of wallets">
+    <ion-card *ngFor="let wallet of wallets; let i = index">
         <ion-card-title>
-            {{wallet.name}}
+            {{ wallet.name }}
         </ion-card-title>
         <ion-card-content>
-            {{wallet.currentAmount}}
+            {{ wallet.amount }}
             <ion-buttons>
                 <button ion-button  color="secondary" (click)="modifyWallet(wallet)">Szerkesztés</button>
-                <button ion-button color="danger" (click)="deleteWallet(wallet)">Törlés</button>
+                <button ion-button color="danger" (click)="deleteWallet(wallet, i)">Törlés</button>
             </ion-buttons>
         </ion-card-content>
     </ion-card>

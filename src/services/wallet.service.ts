@@ -33,8 +33,7 @@ export class WalletService{
     }
 
     deleteWallet (walletId):Observable<any> {
-        return this.http.delete(`${this.apiUrl}/${walletId}`)
-            .map((response:Response) => response.json())
+        return this.http.delete(`${this.apiUrl}/${walletId}`);
     }
 
 
