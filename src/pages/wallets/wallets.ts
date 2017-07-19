@@ -56,6 +56,7 @@ export class WalletsPage implements OnInit {
                                let cashFlow = new CashFlow();
                                cashFlow.walletId = wallet.id;
                                cashFlow.amount = wallet.amount;
+                               cashFlow.text = 'Kezdő összeg';
                                cashFlow.date = new Date()
                                this.cashFlowService.addCashFlow(cashFlow)
                                    .subscribe();
