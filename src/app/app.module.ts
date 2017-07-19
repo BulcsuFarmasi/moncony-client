@@ -8,11 +8,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { AppComponent } from './app.component';
 import { WalletsPage } from '../pages/wallets/wallets';
+import { CashFlowsPage } from "../pages/cash-flows/cash-flows";
 
 @NgModule({
   declarations: [
     AppComponent,
-    WalletsPage
+    WalletsPage,
+    CashFlowsPage
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,8 @@ import { WalletsPage } from '../pages/wallets/wallets';
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
-    WalletsPage
+    WalletsPage,
+    CashFlowsPage
   ],
   providers: [
     StatusBar,

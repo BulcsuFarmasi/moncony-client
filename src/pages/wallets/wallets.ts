@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AlertController } from 'ionic-angular'
+import { AlertController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+
+import { CashFlowsPage } from '../cash-flows/cash-flows'
 
 import { Wallet } from "../../models/wallet";
 import { WalletService } from "../../services/wallet.service"
@@ -14,7 +17,8 @@ export class WalletsPage implements OnInit {
 
     public wallets:Wallet[];
 
-    constructor(private walletService:WalletService, public alertController:AlertController){}
+    constructor(private walletService:WalletService, public alertController:AlertController,
+                private navController:NavController){}
 
     ngOnInit (){
         this.getWallets();
@@ -76,6 +80,10 @@ export class WalletsPage implements OnInit {
     getWallets() {
         this.walletService.getWallets()
             .subscribe((wallets:Wallet[]) => this.wallets = wallets);
+    }
+
+    goToCashFlows(wallet:Wallet) {
+        this.navController.push(CashFlowsPage, wallet);
     }
 
     modifyWallet(wallet:Wallet) {
