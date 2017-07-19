@@ -10,7 +10,7 @@ import { CashFlow } from '../../models/cash-flow/cash-flow'
 @Injectable()
 
 export class CashFlowService {
-    private apiUrl:string = 'http://localhost:8080/api/cash-flows/';
+    private apiUrl:string = 'http://localhost:8080/api/cash-flows';
     constructor(private http:Http){}
 
     addCashFlow(cashFlow:CashFlow):Observable<CashFlow> {
