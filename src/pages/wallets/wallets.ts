@@ -8,6 +8,8 @@ import { CashFlowsPage } from '../cash-flows/cash-flows'
 import { Wallet } from '../../models/wallet/wallet';
 
 import { WalletService } from '../../services/wallet/wallet.service'
+import {CashFlowService} from "../../services/cash-flow/cash-flow.service";
+import {CashFlow} from "../../models/cash-flow/cash-flow";
 
 @Component({
     selector: 'page-wallets',
@@ -18,8 +20,8 @@ export class WalletsPage implements OnInit {
 
     public wallets:Wallet[];
 
-    constructor(private walletService:WalletService, public alertController:AlertController,
-                private navController:NavController){}
+    constructor(private walletService:WalletService, private cashFlowService:CashFlowService,
+                public alertController:AlertController, private navController:NavController){}
 
     ngOnInit (){
         this.getWallets();
@@ -49,7 +51,15 @@ export class WalletsPage implements OnInit {
                    text: 'Hozzáadás',
                    handler:wallet => {
                        this.walletService.addWallet(wallet)
-                           .subscribe(wallet => this.wallets.push(wallet));
+                           .subscribe(wallet => {
+                               this.wallets.push(wallet)
+                               let cashFlow = new CashFlow();
+                               cashFlow.walletId = wallet.id;
+                               cashFlow.amount = wallet.amount;
+                               cashFlow.date = new Date()
+                               this.cashFlowService.addCashFlow(cashFlow)
+                                   .subscribe();
+                           });
                    }
                 }
             ]
