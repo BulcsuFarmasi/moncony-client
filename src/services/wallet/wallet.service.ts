@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Wallet } from '../models/wallet';
+import { Wallet } from '../../models/wallet/wallet';
 
 @Injectable()
 export class WalletService{
