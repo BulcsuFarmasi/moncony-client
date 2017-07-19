@@ -5,8 +5,9 @@ import { NavController } from 'ionic-angular';
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
-import { Wallet } from "../../models/wallet/wallet";
-import { WalletService } from "../../services/wallet/wallet.service"
+import { Wallet } from '../../models/wallet/wallet';
+
+import { WalletService } from '../../services/wallet/wallet.service'
 
 @Component({
     selector: 'page-wallets',
@@ -99,7 +100,7 @@ export class WalletsPage implements OnInit {
             buttons:[
                 {
                     text: 'Mégse',
-                    role:'cancel'
+                    role: 'cancel'
                 },
                 {
                     text: 'Szerkesztés',
