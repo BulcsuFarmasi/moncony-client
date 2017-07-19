@@ -18,7 +18,7 @@ export class CashFlowService {
             .map((response:Response) => response.json());
     }
 
-    getCashFlows(walletId:number): Observable<CashFlow[]>{
+    getCashFlows(walletId:string): Observable<CashFlow[]>{
         return this.http.get(`${this.apiUrl}/${walletId}`)
             .map((response:Response) => response.json());
     }

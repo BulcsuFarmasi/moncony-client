@@ -17,7 +17,7 @@ export class WalletService{
             .map((response:Response) => response.json());
     }
 
-    getWallet (walletId:number):Observable<Wallet> {
+    getWallet (walletId:string):Observable<Wallet> {
         return this.http.get(`${this.apiUrl}/${walletId}`)
             .map((response:Response) => response.json())
 ;    }
