@@ -5,8 +5,8 @@ import { NavController } from 'ionic-angular';
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
-import { Wallet } from "../../models/wallet";
-import { WalletService } from "../../services/wallet.service"
+import { Wallet } from "../../models/wallet/wallet";
+import { WalletService } from "../../services/wallet/wallet.service"
 
 @Component({
     selector: 'page-wallets',

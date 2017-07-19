@@ -4,10 +4,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { WalletsPage } from '../pages/wallets/wallets';
-import { WalletService } from '../services/wallet.service'
+import { WalletService } from '../services/wallet/wallet.service';
+import { CashFlowService } from '../services/cash-flow/cash-flow.service';
+
 @Component({
   templateUrl: 'app.html',
-  providers:[WalletService]
+  providers:[WalletService, CashFlowService]
 })
 export class AppComponent {
   rootPage:any = WalletsPage;
