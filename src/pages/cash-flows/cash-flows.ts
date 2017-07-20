@@ -104,12 +104,14 @@ export class CashFlowsPage implements OnInit {
         prompt.setMessage('Írd be abevétel/kiadás új adatait');
         prompt.addInput({
             name: 'text',
-            placeholder: 'Szöveg'
+            placeholder: 'Szöveg',
+            value: this.cashFlows[index].text
         });
         prompt.addInput({
             type: 'number',
             name: 'amount',
-            placeholder: 'Összeg'
+            placeholder: 'Összeg',
+            value: this.cashFlows[index].amount.toString()
         })
         prompt.addButton({
             role: 'cancel',

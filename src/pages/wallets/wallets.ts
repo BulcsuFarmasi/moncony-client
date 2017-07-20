@@ -105,7 +105,8 @@ export class WalletsPage implements OnInit {
             inputs: [
                 {
                     name: 'name',
-                    placeholder: 'Név'
+                    placeholder: 'Név',
+                    value: wallet.name
                 }
             ],
             buttons:[
