@@ -28,7 +28,7 @@ export class CashFlowService {
             .map((response:Response) => response.json());
     }
 
-    deleteCashFlow(cashFlowId:number){
+    deleteCashFlow(cashFlowId:string){
         return this.http.delete(`${this.apiUrl}/${cashFlowId}`)
     }
 }

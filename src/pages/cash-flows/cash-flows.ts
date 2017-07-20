@@ -85,4 +85,32 @@ export class CashFlowsPage implements OnInit {
 
         prompt.present();
     }
+
+    deleteCashFlow (index) {
+        let confirm = this.alertController.create({
+            title: 'Bevétel/Kiadás Törlése',
+            message: 'Biztos hogy törlöni akarod ezt a bevételt/kiadást?',
+            buttons:[
+                {
+                    'text': 'Mégse',
+                    'role': 'cancel'
+                },
+                {
+                    'text': 'Törlés',
+                    'handler': () => {
+                        this.cashFlowService.deleteCashFlow(this.cashFlows[index].id)
+                            .subscribe(() => {
+                                let wallet = Object.assign({}, this.wallet);
+                                wallet.amount = this.cashFlows[index].amount * -1;
+                                this.walletService.modifyWallet(wallet)
+                                    .subscribe((wallet:Wallet) => this.wallet = wallet );
+                                this.cashFlows.splice(index, 1)
+                        });
+                    }
+                }
+            ]
+        })
+        confirm.present();
+    }
+    modifyCashFlow
 }
