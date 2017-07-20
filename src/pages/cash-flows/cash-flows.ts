@@ -45,18 +45,6 @@ export class CashFlowsPage implements OnInit {
             placeholder: 'Szöveg'
         });
         prompt.addInput({
-            type: 'radio',
-            name: 'income',
-            label: 'Bevétel',
-            value: '1'
-        });
-        prompt.addInput({
-            type: 'radio',
-            name: 'income',
-            label: 'Kiadás',
-            value: '-1'
-        });
-        prompt.addInput({
             type: 'number',
             name: 'amount',
             placeholder: 'Összeg'
@@ -68,8 +56,6 @@ export class CashFlowsPage implements OnInit {
         prompt.addButton({
             text: 'Hozzáadás',
             handler: cashFlow => {
-                cashFlow.amount *= parseInt(cashFlow.income);
-                delete cashFlow.income;
                 cashFlow.walletId = this.wallet.id
                 cashFlow.date = new Date()
                 this.cashFlowService.addCashFlow(cashFlow)
@@ -112,5 +98,38 @@ export class CashFlowsPage implements OnInit {
         })
         confirm.present();
     }
-    modifyCashFlow
+    modifyCashFlow (index) {
+        let prompt = this.alertController.create();
+        prompt.setTitle('Bevétel/Kiadás módosítása');
+        prompt.setMessage('Írd be abevétel/kiadás új adatait');
+        prompt.addInput({
+            name: 'text',
+            placeholder: 'Szöveg'
+        });
+        prompt.addInput({
+            type: 'number',
+            name: 'amount',
+            placeholder: 'Összeg'
+        })
+        prompt.addButton({
+            role: 'cancel',
+            text: 'Mégse'
+        })
+        prompt.addButton({
+            text: 'Módosítás',
+            handler: cashFlow => {
+                cashFlow.id = this.cashFlows[index].id;
+                this.cashFlowService.modifyCashFlow(cashFlow)
+                    .subscribe((cashFlow:CashFlow) => {
+                        let wallet = Object.assign({}, this.wallet);
+                        wallet.amount = (this.cashFlows[index].amount - cashFlow.amount) * -1;
+                        this.cashFlows[index] = cashFlow;
+                        this.walletService.modifyWallet(wallet)
+                            .subscribe((wallet:Wallet) => this.wallet = wallet );
+                    })
+            }
+        })
+
+        prompt.present();
+    }
 }
