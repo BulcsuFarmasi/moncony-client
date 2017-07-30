@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AlertController } from 'ionic-angular';
-import { NavController } from 'ionic-angular';
+import { Alert, AlertController, NavController} from 'ionic-angular';
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
 import { Wallet } from '../../models/wallet/wallet';
 
 import { WalletService } from '../../services/wallet/wallet.service'
-import {CashFlowService} from "../../services/cash-flow/cash-flow.service";
-import {CashFlow} from "../../models/cash-flow/cash-flow";
+import { CashFlowService } from "../../services/cash-flow/cash-flow.service";
+import { CashFlow } from "../../models/cash-flow/cash-flow";
 
 @Component({
     selector: 'page-wallets',
@@ -28,7 +27,7 @@ export class WalletsPage implements OnInit {
     }
 
     addWallet() {
-        let prompt = this.alertController.create({
+        let prompt:Alert = this.alertController.create({
             title: 'Új pénztárca',
             message: 'Írd be az új pénztárca adatait',
             inputs: [
@@ -49,11 +48,11 @@ export class WalletsPage implements OnInit {
                 },
                 {
                    text: 'Hozzáadás',
-                   handler:wallet => {
+                   handler:(wallet:Wallet) => {
                        this.walletService.addWallet(wallet)
-                           .subscribe(wallet => {
+                           .subscribe((wallet:Wallet) => {
                                this.wallets.push(wallet)
-                               let cashFlow = new CashFlow();
+                               let cashFlow:CashFlow = new CashFlow();
                                cashFlow.walletId = wallet.id;
                                cashFlow.amount = wallet.amount;
                                cashFlow.text = 'Kezdő összeg';
@@ -69,7 +68,7 @@ export class WalletsPage implements OnInit {
     }
 
     deleteWallet(wallet:Wallet, index:number) {
-        let confirm = this.alertController.create({
+        let confirm:Alert = this.alertController.create({
             title: `${wallet.name} törlése`,
             message: 'Biztos hogy törlöni akarod ezt a pénztárcát?',
             buttons:[
@@ -99,7 +98,7 @@ export class WalletsPage implements OnInit {
     }
 
     modifyWallet(wallet:Wallet) {
-        let prompt = this.alertController.create({
+        let prompt:Alert = this.alertController.create({
             title: `${wallet.name} szerkestése`,
             message: 'Írd be a pénztárca új nevét',
             inputs: [

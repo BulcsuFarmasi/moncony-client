@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import { AlertController, NavController, NavParams } from 'ionic-angular';
+import { Alert, AlertController, NavController, NavParams } from 'ionic-angular';
 
 import { Wallet } from '../../models/wallet/wallet';
 import { CashFlow } from '../../models/cash-flow/cash-flow';
@@ -28,16 +28,15 @@ export class CashFlowsPage implements OnInit {
 
     getCashFlows () {
         this.cashFlowService.getCashFlows(this.wallet.id)
-            .subscribe((cashFlows:CashFlow[]) => {this.cashFlows = cashFlows; console.log(this.cashFlows)});
+            .subscribe((cashFlows:CashFlow[]) => {this.cashFlows = cashFlows});
     }
 
     getWallet () {
         this.wallet=this.navParams.get('wallet');
-        console.log(this.wallet);
     }
 
     addCashFlow () {
-        let prompt = this.alertController.create();
+        let prompt:Alert = this.alertController.create();
         prompt.setTitle('Új bevétel/kiadás');
         prompt.setMessage('Írd be az új bevétel/kiadás adatait');
         prompt.addInput({
@@ -72,8 +71,8 @@ export class CashFlowsPage implements OnInit {
         prompt.present();
     }
 
-    deleteCashFlow (index) {
-        let confirm = this.alertController.create({
+    deleteCashFlow (index:number) {
+        let confirm:Alert = this.alertController.create({
             title: 'Bevétel/Kiadás Törlése',
             message: 'Biztos hogy törlöni akarod ezt a bevételt/kiadást?',
             buttons:[
@@ -98,8 +97,8 @@ export class CashFlowsPage implements OnInit {
         })
         confirm.present();
     }
-    modifyCashFlow (index) {
-        let prompt = this.alertController.create();
+    modifyCashFlow (index:number) {
+        let prompt:Alert = this.alertController.create();
         prompt.setTitle('Bevétel/Kiadás módosítása');
         prompt.setMessage('Írd be abevétel/kiadás új adatait');
         prompt.addInput({
@@ -119,11 +118,11 @@ export class CashFlowsPage implements OnInit {
         })
         prompt.addButton({
             text: 'Módosítás',
-            handler: cashFlow => {
+            handler: (cashFlow:CashFlow) => {
                 cashFlow.id = this.cashFlows[index].id;
                 this.cashFlowService.modifyCashFlow(cashFlow)
                     .subscribe((cashFlow:CashFlow) => {
-                        let wallet = Object.assign({}, this.wallet);
+                        let wallet:Wallet = Object.assign({}, this.wallet);
                         wallet.amount = (this.cashFlows[index].amount - cashFlow.amount) * -1;
                         this.cashFlows[index] = cashFlow;
                         this.walletService.modifyWallet(wallet)
