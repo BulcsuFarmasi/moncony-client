@@ -67,9 +67,9 @@ export class WalletsPage implements OnInit {
         prompt.present();
     }
 
-    deleteWallet(wallet:Wallet, index:number) {
+    deleteWallet(index:number) {
         let confirm:Alert = this.alertController.create({
-            title: `${wallet.name} törlése`,
+            title: `${this.wallets[index].name} törlése`,
             message: 'Biztos hogy törlöni akarod ezt a pénztárcát?',
             buttons:[
                 {
@@ -79,7 +79,7 @@ export class WalletsPage implements OnInit {
                 {
                     'text': 'Törlés',
                     'handler': () => {
-                        this.walletService.deleteWallet(wallet.id)
+                        this.walletService.deleteWallet(this.wallets[index].id)
                             .subscribe(() => this.wallets.splice(index, 1));
                     }
                 }
@@ -93,19 +93,19 @@ export class WalletsPage implements OnInit {
             .subscribe((wallets:Wallet[]) => this.wallets = wallets);
     }
 
-    goToCashFlows(wallet:Wallet) {
-        this.navController.push(CashFlowsPage, {wallet: wallet});
+    goToCashFlows(index:number) {
+        this.navController.push(CashFlowsPage, {wallet: this.wallets[index]});
     }
 
-    modifyWallet(wallet:Wallet) {
+    modifyWallet(index:number) {
         let prompt:Alert = this.alertController.create({
-            title: `${wallet.name} szerkestése`,
+            title: `${this.wallets[index].name} szerkestése`,
             message: 'Írd be a pénztárca új nevét',
             inputs: [
                 {
                     name: 'name',
                     placeholder: 'Név',
-                    value: wallet.name
+                    value: this.wallets[index].name
                 }
             ],
             buttons:[
@@ -116,17 +116,15 @@ export class WalletsPage implements OnInit {
                 {
                     text: 'Szerkesztés',
                     handler:promptWallet => {
-                        let sendWallet = wallet;
+                        let sendWallet = this.wallets[index];
                         sendWallet.name = promptWallet.name;
                         sendWallet.amount = 0;
                         this.walletService.modifyWallet(sendWallet)
-                            .subscribe(responseWallet => wallet = responseWallet);
+                            .subscribe(responseWallet => this.wallets[index] = responseWallet);
                     }
                 }
             ]
         });
         prompt.present();
     }
-
-
 }

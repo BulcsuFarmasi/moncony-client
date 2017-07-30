@@ -11,9 +11,9 @@
         <ion-card-content>
             {{ wallet.amount }}
             <ion-buttons>
-                <button ion-button  color="secondary" (click)="modifyWallet(wallet)">Szerkesztés</button>
-                <button ion-button color="danger" (click)="deleteWallet(wallet, i)">Törlés</button>
-                <button ion-button color="primary" (click)="goToCashFlows(wallet)">Történet</button>
+                <button ion-button  color="secondary" (click)="modifyWallet(i)">Szerkesztés</button>
+                <button ion-button color="danger" (click)="deleteWallet(i)">Törlés</button>
+                <button ion-button color="primary" (click)="goToCashFlows(i)">Történet</button>
             </ion-buttons>
         </ion-card-content>
     </ion-card>
