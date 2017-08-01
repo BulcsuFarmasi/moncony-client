@@ -9,7 +9,7 @@ import { CashFlowService } from '../../services/cash-flow/cash-flow.service';
 import { WalletService } from '../../services/wallet/wallet.service';
 
 @Component({
-    selector:'page-add-cash-flow',
+    selector:'page-modify-cash-flow',
     templateUrl:'./modify-cash-flow.html'
 })
 
