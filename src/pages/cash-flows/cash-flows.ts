@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
-import { Alert, AlertController, NavController, NavParams } from 'ionic-angular';
+import { Alert, AlertController, Modal, ModalController, NavController, NavParams } from 'ionic-angular';
 
 import { Wallet } from '../../models/wallet/wallet';
 import { CashFlow } from '../../models/cash-flow/cash-flow';
+
+import { AddCashFlowPage } from '../add-cash-flow/add-cash-flow'
 
 import { CashFlowService } from '../../services/cash-flow/cash-flow.service';
 import { WalletService } from '../../services/wallet/wallet.service';
@@ -19,7 +21,7 @@ export class CashFlowsPage implements OnInit {
 
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService,
                 private navController:NavController, private navParams:NavParams,
-                private alertController:AlertController){}
+                private alertController:AlertController, private modalController:ModalController){}
 
     ngOnInit () {
         this.getWallet();
@@ -36,39 +38,12 @@ export class CashFlowsPage implements OnInit {
     }
 
     addCashFlow () {
-        let prompt:Alert = this.alertController.create();
-        prompt.setTitle('Új bevétel/kiadás');
-        prompt.setMessage('Írd be az új bevétel/kiadás adatait');
-        prompt.addInput({
-            name: 'text',
-            placeholder: 'Szöveg'
-        });
-        prompt.addInput({
-            type: 'number',
-            name: 'amount',
-            placeholder: 'Összeg'
+        let modal:Modal = this.modalController.create(AddCashFlowPage, {wallet: this.wallet});
+        modal.present();
+        modal.onDidDismiss((data:{wallet:Wallet, cashFlow:CashFlow}) => {
+            this.wallet = data.wallet;
+            this.cashFlows.push(data.cashFlow);
         })
-        prompt.addButton({
-            role: 'cancel',
-            text: 'Mégse'
-        })
-        prompt.addButton({
-            text: 'Hozzáadás',
-            handler: cashFlow => {
-                cashFlow.walletId = this.wallet.id
-                cashFlow.date = new Date()
-                this.cashFlowService.addCashFlow(cashFlow)
-                    .subscribe((cashFlow:CashFlow) => {
-                        this.cashFlows.push(cashFlow);
-                        let wallet = Object.assign({}, this.wallet);
-                        wallet.amount = cashFlow.amount;
-                        this.walletService.modifyWallet(wallet)
-                            .subscribe((wallet:Wallet) => this.wallet = wallet );
-                    })
-            }
-        })
-
-        prompt.present();
     }
 
     deleteCashFlow (index:number) {

@@ -7,14 +7,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { AppComponent } from './app.component';
+
+import { CashFlowService } from '../services/cash-flow/cash-flow.service';
+import { WalletService } from '../services/wallet/wallet.service';
+
+import { AddCashFlowPage } from '../pages/add-cash-flow/add-cash-flow';
+import { CashFlowsPage } from '../pages/cash-flows/cash-flows';
 import { WalletsPage } from '../pages/wallets/wallets';
-import { CashFlowsPage } from "../pages/cash-flows/cash-flows";
 
 @NgModule({
   declarations: [
     AppComponent,
-    WalletsPage,
-    CashFlowsPage
+    AddCashFlowPage,
+    CashFlowsPage,
+    WalletsPage
   ],
   imports: [
     BrowserModule,
@@ -24,13 +30,16 @@ import { CashFlowsPage } from "../pages/cash-flows/cash-flows";
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
-    WalletsPage,
-    CashFlowsPage
+    AddCashFlowPage,
+    CashFlowsPage,
+    WalletsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CashFlowService,
+    WalletService
   ]
 })
 export class AppModule {}
