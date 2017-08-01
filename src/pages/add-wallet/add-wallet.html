@@ -1,0 +1,12 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Pénztárca Hozzáadása</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <p><p><label for="name">Név</label><br />
+    <input type="text" id="name" [(ngModel)]="wallet.name" /></p>
+    <p><p><label for="amount">Kezdő Összeg</label><br />
+    <input type="number" id="amount" [(ngModel)]="wallet.amount" /></p>
+    <p><input type="submit" value="Küldés" (click)="addWallet()" ></p>
+</ion-content>

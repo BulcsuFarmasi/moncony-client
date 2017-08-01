@@ -12,6 +12,7 @@ import { CashFlowService } from '../services/cash-flow/cash-flow.service';
 import { WalletService } from '../services/wallet/wallet.service';
 
 import { AddCashFlowPage } from '../pages/add-cash-flow/add-cash-flow';
+import { AddWalletPage } from "../pages/add-wallet/add-wallet";
 import { CashFlowsPage } from '../pages/cash-flows/cash-flows';
 import { WalletsPage } from '../pages/wallets/wallets';
 
@@ -19,6 +20,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
   declarations: [
     AppComponent,
     AddCashFlowPage,
+    AddWalletPage,
     CashFlowsPage,
     WalletsPage
   ],
@@ -31,6 +33,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
   entryComponents: [
     AppComponent,
     AddCashFlowPage,
+    AddWalletPage,
     CashFlowsPage,
     WalletsPage
   ],
