@@ -12,8 +12,9 @@ import { CashFlowService } from '../services/cash-flow/cash-flow.service';
 import { WalletService } from '../services/wallet/wallet.service';
 
 import { AddCashFlowPage } from '../pages/add-cash-flow/add-cash-flow';
-import { AddWalletPage } from "../pages/add-wallet/add-wallet";
+import { AddWalletPage } from '../pages/add-wallet/add-wallet';
 import { CashFlowsPage } from '../pages/cash-flows/cash-flows';
+import { ModifyCashFlowPage } from '../pages/modify-cash-flow/modify-cash-flow';
 import { WalletsPage } from '../pages/wallets/wallets';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
     AddCashFlowPage,
     AddWalletPage,
     CashFlowsPage,
+    ModifyCashFlowPage,
     WalletsPage
   ],
   imports: [
@@ -35,6 +37,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
     AddCashFlowPage,
     AddWalletPage,
     CashFlowsPage,
+    ModifyCashFlowPage,
     WalletsPage
   ],
   providers: [

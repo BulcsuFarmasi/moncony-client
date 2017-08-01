@@ -9,6 +9,7 @@ import { AddCashFlowPage } from '../add-cash-flow/add-cash-flow'
 
 import { CashFlowService } from '../../services/cash-flow/cash-flow.service';
 import { WalletService } from '../../services/wallet/wallet.service';
+import {ModifyCashFlowPage} from "../modify-cash-flow/modify-cash-flow";
 
 @Component({
     selector: 'page-cash-flows',
@@ -73,39 +74,12 @@ export class CashFlowsPage implements OnInit {
         confirm.present();
     }
     modifyCashFlow (index:number) {
-        let prompt:Alert = this.alertController.create();
-        prompt.setTitle('Bevétel/Kiadás módosítása');
-        prompt.setMessage('Írd be abevétel/kiadás új adatait');
-        prompt.addInput({
-            name: 'text',
-            placeholder: 'Szöveg',
-            value: this.cashFlows[index].text
-        });
-        prompt.addInput({
-            type: 'number',
-            name: 'amount',
-            placeholder: 'Összeg',
-            value: this.cashFlows[index].amount.toString()
+        let modal:Modal = this.modalController.create(ModifyCashFlowPage,
+            {wallet: this.wallet, cashFlow: this.cashFlows[index]});
+        modal.present();
+        modal.onDidDismiss((data:{wallet:Wallet, cashFlow:CashFlow}) => {
+            this.wallet = data.wallet;
+            this.cashFlows[index] = data.cashFlow;
         })
-        prompt.addButton({
-            role: 'cancel',
-            text: 'Mégse'
-        })
-        prompt.addButton({
-            text: 'Módosítás',
-            handler: (cashFlow:CashFlow) => {
-                cashFlow.id = this.cashFlows[index].id;
-                this.cashFlowService.modifyCashFlow(cashFlow)
-                    .subscribe((cashFlow:CashFlow) => {
-                        let wallet:Wallet = Object.assign({}, this.wallet);
-                        wallet.amount = (this.cashFlows[index].amount - cashFlow.amount) * -1;
-                        this.cashFlows[index] = cashFlow;
-                        this.walletService.modifyWallet(wallet)
-                            .subscribe((wallet:Wallet) => this.wallet = wallet );
-                    })
-            }
-        })
-
-        prompt.present();
     }
 }
