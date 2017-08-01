@@ -1,0 +1,10 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Pénztárca Módosítása</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <p><label for="text">Szöveg</label><br />
+    <input type="text" id="text" [(ngModel)]="wallet.name" /></p>
+    <p><input type="submit" value="Küldés" (click)="modifyWallet()" ></p>
+</ion-content>
