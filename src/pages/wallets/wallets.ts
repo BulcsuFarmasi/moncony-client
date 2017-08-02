@@ -18,6 +18,7 @@ import {ModifyWalletPage} from "../modify-wallet/modify-wallet";
 export class WalletsPage implements OnInit {
 
     public wallets:Wallet[];
+    public totalAmount:number;
 
     constructor(private walletService:WalletService, private alertController:AlertController,
                 private navController:NavController, private modalController:ModalController){}
@@ -31,6 +32,7 @@ export class WalletsPage implements OnInit {
         modal.present();
         modal.onDidDismiss((wallet:Wallet) => {
             this.wallets.push(wallet);
+            this.getTotalAmount();
         })
     }
 
@@ -47,7 +49,10 @@ export class WalletsPage implements OnInit {
                     'text': 'Törlés',
                     'handler': () => {
                         this.walletService.deleteWallet(this.wallets[index].id)
-                            .subscribe(() => this.wallets.splice(index, 1));
+                            .subscribe(() => {
+                                this.wallets.splice(index, 1)
+                                this.getTotalAmount();
+                            });
                     }
                 }
             ]
@@ -57,7 +62,14 @@ export class WalletsPage implements OnInit {
 
     getWallets() {
         this.walletService.getWallets()
-            .subscribe((wallets:Wallet[]) => this.wallets = wallets);
+            .subscribe((wallets:Wallet[]) => {
+                this.wallets = wallets;
+                this.getTotalAmount();
+        });
+    }
+
+    getTotalAmount () {
+        this.totalAmount = this.walletService.getTotalAmount(this.wallets);
     }
 
     goToCashFlows(index:number) {

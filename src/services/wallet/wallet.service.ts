@@ -27,6 +27,12 @@ export class WalletService{
             .map((response:Response) => response.json());
     }
 
+    getTotalAmount (wallets:Wallet[]):number {
+        return wallets.reduce((totalAmount:number, wallet:Wallet) => {
+            return totalAmount + wallet.amount;
+        }, 0)
+    }
+
     modifyWallet (wallet:Wallet):Observable<Wallet>{
         return this.http.put(`${this.apiUrl}/${wallet.id}`, wallet)
             .map((response:Response) => response.json());

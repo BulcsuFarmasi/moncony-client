@@ -4,6 +4,7 @@
     </ion-toolbar>
 </ion-header>
 <ion-content color="light">
+    <p>Összes vagyon: {{totalAmount}}</p>
     <ion-card *ngFor="let wallet of wallets; let i = index">
         <ion-card-title>
             {{ wallet.name }}
