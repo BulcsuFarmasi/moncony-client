@@ -1,5 +1,10 @@
 <p><label for="text">Szöveg</label><br />
     <input type="text" id="text" [(ngModel)]="cashFlow.text" /></p>
-<p><p><label for="amount">Összeg</label><br />
+<p><label for="amount">Összeg</label><br />
     <input type="number" id="amount" [(ngModel)]="cashFlow.amount" /></p>
+<p *ngIf="wallets"><label for="wallet">Pénztárca</label>
+    <select id="wallet" [(ngModel)]="wallet" (ngModelChange)="changeWalletId()">
+        <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
+    </select>
+</p>
 <p><input type="submit" value="Küldés" (click)="addCashFlow()" ></p>

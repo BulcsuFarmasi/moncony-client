@@ -17,6 +17,12 @@ export class WalletService{
             .map((response:Response) => response.json());
     }
 
+    getIndex (wallets: Wallet[], id:string) {
+        return wallets.findIndex((wallet) => {
+            return wallet.id === id;
+        })
+    }
+
     getWallet (walletId:string):Observable<Wallet> {
         return this.http.get(`${this.apiUrl}/${walletId}`)
             .map((response:Response) => response.json())

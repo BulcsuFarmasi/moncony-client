@@ -23,26 +23,6 @@ export class AddCashFlowPage implements OnInit{
 
     ngOnInit () {
         this.getWallet();
-        this.getCashFlow();
-    }
-
-    addCashFlow() {
-        this.cashFlow.date = new Date()
-        this.cashFlowService.addCashFlow(this.cashFlow)
-            .subscribe((cashFlow:CashFlow) => {
-                this.cashFlow = cashFlow;
-                this.wallet.amount = this.cashFlow.amount;
-                this.walletService.modifyWallet(this.wallet)
-                    .subscribe((wallet:Wallet) => {
-                        this.wallet = wallet
-                        this.viewController.dismiss({wallet: this.wallet, cashFlow:this.cashFlow})
-                    });
-            })
-        }
-
-    getCashFlow() {
-        this.cashFlow = new CashFlow();
-        this.cashFlow.walletId = this.wallet.id;
     }
 
     getWallet () {
