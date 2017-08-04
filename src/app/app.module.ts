@@ -7,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { AppComponent } from './app.component';
+import { AddCashFlowComponent } from '../components/add-cash-flow/add-cash-flow'
 
 import { CashFlowService } from '../services/cash-flow/cash-flow.service';
 import { WalletService } from '../services/wallet/wallet.service';
@@ -22,6 +23,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
 @NgModule({
   declarations: [
     AppComponent,
+    AddCashFlowComponent,
     AddCashFlowPage,
     AddWalletPage,
     CashFlowsPage,
@@ -38,6 +40,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
   bootstrap: [IonicApp],
   entryComponents: [
     AppComponent,
+    AddCashFlowComponent,
     AddCashFlowPage,
     AddWalletPage,
     CashFlowsPage,

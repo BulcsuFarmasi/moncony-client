@@ -1,0 +1,5 @@
+<p><label for="text">Szöveg</label><br />
+    <input type="text" id="text" [(ngModel)]="cashFlow.text" /></p>
+<p><p><label for="amount">Összeg</label><br />
+    <input type="number" id="amount" [(ngModel)]="cashFlow.amount" /></p>
+<p><input type="submit" value="Küldés" (click)="addCashFlow()" ></p>
