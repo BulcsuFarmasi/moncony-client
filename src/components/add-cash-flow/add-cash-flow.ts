@@ -14,18 +14,17 @@ import { WalletService } from "../../services/wallet/wallet.service";
 export class AddCashFlowComponent implements OnInit{
     
     public cashFlow:CashFlow;
-    @Output cashflowmodified:EventEmitter<CashFlow>;
     @Input() wallet:Wallet;
-    @Output walletmodified:EventEmitter<Wallet>;
+    @Output walletmodified:EventEmitter<{wallet:Wallet, cashFlow:CashFlow}>;
     @Input() wallets:Wallet[];
     @Output walletsmodified:EventEmitter<Wallet[]>;
-    private walletIndex:number
 
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService){}
 
     ngOnInit () {
         this.getCashFlow();
-        this.getCashFlowModified();
+        this.getWalletModified();
+        this.getWalletsModified();
     }
 
     addCashFlow() {
@@ -42,16 +41,10 @@ export class AddCashFlowComponent implements OnInit{
                             this.wallets[index] = this.wallet;
                             this.walletsmodified.emit(this.wallets);
                         } else {
-                            this.cashflowmodified.emit(this.cashFlow);
-                            this.walletmodified.emit(this.wallet);
+                            this.walletmodified.emit({wallet: this.wallet, cashFlow: this.cashFlow});
                         }
                     });
             })
-    }
-
-    changeWallet (index:number) {
-        this.walletIndex = index;
-        this.changeWalletId();
     }
 
     changeWalletId () {
@@ -64,7 +57,12 @@ export class AddCashFlowComponent implements OnInit{
             this.cashFlow.walletId = this.wallet.id
         }
     }
-    getCashFlowModified() {
-        this.cashflowmodified = new EventEmitter();
+
+    getWalletModified () {
+        this.walletmodified = new EventEmitter();
+    }
+
+    getWalletsModified () {
+        this.walletsmodified = new EventEmitter();
     }
 }

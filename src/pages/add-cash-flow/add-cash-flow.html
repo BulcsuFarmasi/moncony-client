@@ -4,5 +4,5 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <add-cash-flow [wallet]="wallet"></add-cash-flow>
+    <add-cash-flow [wallet]="wallet" (walletmodified)="setWallet()"></add-cash-flow>
 </ion-content>

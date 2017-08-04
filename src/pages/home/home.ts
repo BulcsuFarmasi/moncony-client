@@ -41,4 +41,8 @@ export class HomePage implements OnInit{
             this.wallets = wallets;
         })
     }
+
+    setWallets (wallets:Wallet[]) {
+        this.wallets = wallets;
+    }
 }

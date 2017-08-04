@@ -25,6 +25,12 @@ export class AddCashFlowPage implements OnInit{
         this.getWallet();
     }
 
+    setWallet (data:{wallet:Wallet, cashFlow:CashFlow}) {
+        this.wallet = data.wallet;
+        this.cashFlow = data.cashFlow;
+        this.viewController.dismiss({wallet: this.wallet, cashFlow:this.cashFlow});
+    }
+
     getWallet () {
         this.wallet = this.navParams.get('wallet');
     }
