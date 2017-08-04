@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Alert, AlertController, Modal, ModalController, NavController } from 'ionic-angular';
+import {Alert, AlertController, Events, Modal, ModalController, NavController} from 'ionic-angular';
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
 import { Wallet } from '../../models/wallet/wallet';
 
 import { WalletService } from '../../services/wallet/wallet.service'
-import {AddWalletPage} from "../add-wallet/add-wallet";
-import {ModifyWalletPage} from "../modify-wallet/modify-wallet";
+
+import { AddWalletPage } from "../add-wallet/add-wallet";
+import { ModifyWalletPage } from "../modify-wallet/modify-wallet";
 
 @Component({
     selector: 'page-wallets',
@@ -21,7 +22,8 @@ export class WalletsPage implements OnInit {
     public totalAmount:number;
 
     constructor(private walletService:WalletService, private alertController:AlertController,
-                private navController:NavController, private modalController:ModalController){}
+                private navController:NavController, private modalController:ModalController,
+                private events:Events){}
 
     ngOnInit (){
         this.getWallets();
@@ -74,6 +76,7 @@ export class WalletsPage implements OnInit {
 
     goToCashFlows(index:number) {
         this.navController.push(CashFlowsPage, {wallet: this.wallets[index]});
+        this.returnFromCashFlows(index);
     }
 
     modifyWallet(index:number) {
@@ -81,6 +84,13 @@ export class WalletsPage implements OnInit {
         modal.present();
         modal.onDidDismiss((wallet:Wallet) => {
             this.wallets[index] = wallet;
+        })
+    }
+
+    returnFromCashFlows(index:number) {
+        this.events.subscribe('wallet:modified',(wallet:Wallet) => {
+            this.wallets[index] = wallet;
+            this.getTotalAmount();
         })
     }
 }

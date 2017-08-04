@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import { Alert, AlertController, Modal, ModalController, NavController, NavParams } from 'ionic-angular';
+import { Alert, AlertController, Events, Modal, ModalController, NavController, NavParams } from 'ionic-angular';
 
 import { Wallet } from '../../models/wallet/wallet';
 import { CashFlow } from '../../models/cash-flow/cash-flow';
@@ -21,12 +21,16 @@ export class CashFlowsPage implements OnInit {
     public wallet:Wallet;
 
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService,
-                private navController:NavController, private navParams:NavParams,
-                private alertController:AlertController, private modalController:ModalController){}
+                private navParams:NavParams, private alertController:AlertController,
+                private modalController:ModalController, private events:Events){}
 
     ngOnInit () {
         this.getWallet();
         this.getCashFlows();
+    }
+
+    ionViewWillLeave() {
+        this.events.publish('wallet:modified', this.wallet);
     }
 
     getCashFlows () {
