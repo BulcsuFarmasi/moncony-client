@@ -5,8 +5,8 @@
 </ion-header>
 <ion-content>
     <h1>Gyors hozzáadás</h1>
+    <add-cash-flow [wallets]="wallets" (walletsmodified)="setWallets($event)"></add-cash-flow>
     <ion-buttons>
-        <add-cash-flow [wallets]="wallets" (walletsmodified)="setWallets(wallets)"></add-cash-flow>
         <button ion-button color="primary" (click)="goToWallets()">Pénztárcák</button>
     </ion-buttons>
 </ion-content>

@@ -37,9 +37,9 @@ export class HomePage implements OnInit{
     }
 
     returnFromWallets () {
-        this.events.subscribe('wallet:modified',(wallets:Wallet[]) => {
-            this.wallets = wallets;
-        })
+       this.events.subscribe('wallets:modified',(wallets:Wallet[]) => {
+           this.wallets = wallets;
+       })
     }
 
     setWallets (wallets:Wallet[]) {
