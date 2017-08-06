@@ -4,7 +4,7 @@
     <input type="number" id="amount" [(ngModel)]="cashFlow.amount" /></p>
 <p *ngIf="wallets"><label for="wallet">Pénztárca</label>
     <select id="wallet" [(ngModel)]="wallet" (ngModelChange)="changeWalletId()">
-        <option *ngFor="let wallet of wallets; length" [value]="wallet">{{wallet.name}}</option>
+        <option *ngFor="let wallet of wallets; length" [ngValue]="wallet">{{wallet.name}}</option>
     </select>
 </p>
 <p><input type="submit" value="Küldés" (click)="addCashFlow()" ></p>
