@@ -12,24 +12,41 @@ export class WalletService{
     constructor(private storage:Storage){}
 
     addWallet (wallet:Wallet):Observable<Wallet> {
-        return this.http.post(`${this.apiUrl}/`, wallet)
-            .map((response:Response) => response.json());
+        return Observable.fromPromise(
+            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
+                var id
+                if (wallets) {
+                    id = wallets[wallets.length - 1].id + 1;
+                } else{
+                    id = 1;
+                    wallets = [];
+                }
+                wallet.id = id;
+                wallets.push(wallet);
+                this.storage.set(this.storageKey, wallets);
+                return wallet;
+            })
+        )
     }
 
     getIndex (wallets: Wallet[], id:number) {
-        return wallets.findIndex((wallet) => {
-            return wallet.id === id;
-        })
+        return wallets.findIndex((wallet) => wallet.id === id)
     }
 
     getWallet (walletId:number):Observable<Wallet> {
-        return this.http.get(`${this.apiUrl}/${walletId}`)
-            .map((response:Response) => response.json())
+        return Observable.fromPromise(
+            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
+                return wallets.find(wallet => wallet.id == walletId)
+            })
+        )
 ;    }
 
     getWallets ():Observable<Wallet[]> {
-        return this.http.get(`${this.apiUrl}/`)
-            .map((response:Response) => response.json());
+        return Observable.fromPromise(
+            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
+                return wallets || [];
+            })
+        )
     }
 
     getTotalAmount (wallets:Wallet[]):number {
@@ -39,12 +56,24 @@ export class WalletService{
     }
 
     modifyWallet (wallet:Wallet):Observable<Wallet>{
-        return this.http.put(`${this.apiUrl}/${wallet.id}`, wallet)
-            .map((response:Response) => response.json());
+        return Observable.fromPromise(
+            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
+                let index = this.getIndex(wallets, wallet.id);
+                wallets[index] = wallet;
+                this.storage.set(this.storageKey, wallet);
+                return wallet;
+            })
+        )
     }
 
     deleteWallet (walletId):Observable<any> {
-        return this.http.delete(`${this.apiUrl}/${walletId}`);
+        return Observable.fromPromise(
+            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
+                let index = this.getIndex(wallets, walletId);
+                wallets.splice(index, 1);
+                this.storage.set(this.storageKey, wallets);
+            })
+        )
     }
 
 
