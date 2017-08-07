@@ -10,7 +10,7 @@ import { CashFlow } from '../../models/cash-flow/cash-flow'
 @Injectable()
 
 export class CashFlowService {
-    private apiUrl:string = 'https://thawing-mesa-52636.herokuapp.com/api/cash-flows';
+    private apiUrl:string = 'https://montrack.herokuapp.com/api/cash-flows';
     constructor(private http:Http){}
 
     addCashFlow(cashFlow:CashFlow):Observable<CashFlow> {
