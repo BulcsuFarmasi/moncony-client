@@ -18,7 +18,7 @@ export class CashFlowService {
             .map((response:Response) => response.json());
     }
 
-    getCashFlows(walletId:string): Observable<CashFlow[]>{
+    getCashFlows(walletId:number): Observable<CashFlow[]>{
         return this.http.get(`${this.apiUrl}/${walletId}`)
             .map((response:Response) => response.json());
     }
@@ -28,7 +28,7 @@ export class CashFlowService {
             .map((response:Response) => response.json());
     }
 
-    deleteCashFlow(cashFlowId:string){
+    deleteCashFlow(cashFlowId:number){
         return this.http.delete(`${this.apiUrl}/${cashFlowId}`)
     }
 }

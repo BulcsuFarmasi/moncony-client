@@ -17,13 +17,13 @@ export class WalletService{
             .map((response:Response) => response.json());
     }
 
-    getIndex (wallets: Wallet[], id:string) {
+    getIndex (wallets: Wallet[], id:number) {
         return wallets.findIndex((wallet) => {
             return wallet.id === id;
         })
     }
 
-    getWallet (walletId:string):Observable<Wallet> {
+    getWallet (walletId:number):Observable<Wallet> {
         return this.http.get(`${this.apiUrl}/${walletId}`)
             .map((response:Response) => response.json())
 ;    }
