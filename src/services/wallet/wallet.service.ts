@@ -9,7 +9,7 @@ import { Wallet } from '../../models/wallet/wallet';
 
 @Injectable()
 export class WalletService{
-    private apiUrl:string = 'https://montrack.herokuapp.com/api/wallets';
+    private storageKey:string = 'wallets';
     constructor(private http:Http){}
 
     addWallet (wallet:Wallet):Observable<Wallet> {
