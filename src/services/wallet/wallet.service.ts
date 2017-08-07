@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage'
 
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 
 import { Wallet } from '../../models/wallet/wallet';
 
