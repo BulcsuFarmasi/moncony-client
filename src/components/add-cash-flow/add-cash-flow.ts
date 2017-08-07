@@ -14,6 +14,7 @@ import { WalletService } from "../../services/wallet/wallet.service";
 export class AddCashFlowComponent implements OnInit{
     
     public cashFlow:CashFlow;
+    public cashFlowType:number = 1;
     @Input() wallet:Wallet;
     @Output() walletmodified:EventEmitter<{wallet:Wallet, cashFlow:CashFlow}> = new EventEmitter();
     @Output() walletsmodified:EventEmitter<Wallet[]> = new EventEmitter();
@@ -27,6 +28,9 @@ export class AddCashFlowComponent implements OnInit{
 
     addCashFlow() {
         this.cashFlow.date = new Date();
+        if (this.cashFlowType == -1) {
+            this.cashFlow.amount *= this.cashFlowType;
+        }
         this.cashFlowService.addCashFlow(this.cashFlow)
             .subscribe((cashFlow:CashFlow) => {
                 this.cashFlow = cashFlow;

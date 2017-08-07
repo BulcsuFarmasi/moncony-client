@@ -1,7 +1,11 @@
 <p><label for="text">Szöveg</label><br />
     <input type="text" id="text" [(ngModel)]="cashFlow.text" /></p>
+<p>
+    <input type="radio" id="income" value="1" [(ngModel)]="cashFlowType" /><label for="income">Bevétel</label><br />
+    <input type="radio" id="expense" value="-1"  [(ngModel)]="cashFlowType" /><label for="expense">Kiadás</label>
+</p>
 <p><label for="amount">Összeg</label><br />
-    <input type="number" id="amount" [(ngModel)]="cashFlow.amount" /></p>
+    <input type="number" id="amount" [(ngModel)]="cashFlow.amount" min="1" /></p>
 <p *ngIf="wallets"><label for="wallet">Pénztárca</label>
     <select id="wallet" [(ngModel)]="wallet" (ngModelChange)="changeWalletId()">
         <option *ngFor="let wallet of wallets; length" [ngValue]="wallet">{{wallet.name}}</option>
