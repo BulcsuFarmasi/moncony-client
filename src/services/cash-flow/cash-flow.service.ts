@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Http, Response } from '@angular/http';
+
+import { Storage } from '@ionic/storage'
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -11,7 +12,7 @@ import { CashFlow } from '../../models/cash-flow/cash-flow'
 
 export class CashFlowService {
     private storageKey:string = 'cashFlows';
-    constructor(private http:Http){}
+    constructor(private storage:Storage){}
 
     addCashFlow(cashFlow:CashFlow):Observable<CashFlow> {
         return this.http.post(`${this.apiUrl}/${cashFlow.walletId}`, cashFlow)
