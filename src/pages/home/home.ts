@@ -28,6 +28,7 @@ export class HomePage implements OnInit{
         this.walletService.getWallets()
             .subscribe((wallets:Wallet[]) =>{
                 this.wallets = wallets;
+                console.log(this.wallets);
             })
     }
 

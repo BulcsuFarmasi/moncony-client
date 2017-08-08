@@ -4,12 +4,14 @@ import {Alert, AlertController, Events, Modal, ModalController, NavController, N
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
+import { CashFlow } from '../../models/cash-flow/cash-flow';
 import { Wallet } from '../../models/wallet/wallet';
 
+import { CashFlowService } from '../../services/cash-flow/cash-flow.service';
 import { WalletService } from '../../services/wallet/wallet.service'
 
-import { AddWalletPage } from "../add-wallet/add-wallet";
-import { ModifyWalletPage } from "../modify-wallet/modify-wallet";
+import { AddWalletPage } from '../add-wallet/add-wallet';
+import { ModifyWalletPage } from '../modify-wallet/modify-wallet';
 
 @Component({
     selector: 'page-wallets',
@@ -21,9 +23,10 @@ export class WalletsPage implements OnInit {
     public wallets:Wallet[];
     public totalAmount:number;
 
-    constructor(private walletService:WalletService, private alertController:AlertController,
-                private navController:NavController, private modalController:ModalController,
-                private events:Events, private navParams:NavParams){}
+    constructor(private walletService:WalletService, private cashFlowService: CashFlowService,
+                private alertController:AlertController, private navController:NavController, 
+                private modalController:ModalController, private events:Events, 
+                private navParams:NavParams){}
 
     ngOnInit (){
         this.getWallets();
@@ -56,7 +59,12 @@ export class WalletsPage implements OnInit {
                     'handler': () => {
                         this.walletService.deleteWallet(this.wallets[index].id)
                             .subscribe(() => {
-                                this.wallets.splice(index, 1)
+                                this.cashFlowService.getCashFlows(this.wallets[index].id)
+                                    .subscribe((cashFlows:CashFlow[]) => {
+                                        console.log(cashFlows);
+                                        cashFlows.map(cashFlow => {this.cashFlowService.deleteCashFlow(cashFlow.id)});
+                                    });
+                                this.wallets.splice(index, 1);
                                 this.getTotalAmount();
                             });
                     }

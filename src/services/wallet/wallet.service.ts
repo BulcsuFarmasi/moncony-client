@@ -13,17 +13,20 @@ export class WalletService{
 
     addWallet (wallet:Wallet):Observable<Wallet> {
         return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
-                var id
-                if (wallets) {
+            this.storage.get(this.storageKey).then((walletsString:string) => {
+                var id:number;
+                var wallets:Wallet[] = JSON.parse(walletsString);;
+                if (wallets && wallets.length > 0) {
                     id = wallets[wallets.length - 1].id + 1;
-                } else{
+                } else {
+                    if (!wallets) {
+                        wallets = [];
+                    }
                     id = 1;
-                    wallets = [];
                 }
                 wallet.id = id;
                 wallets.push(wallet);
-                this.storage.set(this.storageKey, wallets);
+                this.storage.set(this.storageKey, JSON.stringify(wallets));
                 return wallet;
             })
         )
@@ -35,7 +38,8 @@ export class WalletService{
 
     getWallet (walletId:number):Observable<Wallet> {
         return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
+            this.storage.get(this.storageKey).then((walletsString:string) => {
+                let wallets:Wallet[] = JSON.parse(walletsString);
                 return wallets.find(wallet => wallet.id == walletId)
             })
         )
@@ -43,8 +47,10 @@ export class WalletService{
 
     getWallets ():Observable<Wallet[]> {
         return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
+            this.storage.get(this.storageKey).then((walletsString:string) => {
+                let wallets:Wallet[] = JSON.parse(walletsString);
                 return wallets || [];
+
             })
         )
     }
@@ -55,26 +61,27 @@ export class WalletService{
         }, 0)
     }
 
+    deleteWallet (walletId):Observable<any> {
+        return Observable.fromPromise(
+            this.storage.get(this.storageKey).then((walletsString:string) => {
+                let wallets:Wallet[] = JSON.parse(walletsString);
+                let index = this.getIndex(wallets, walletId);
+                wallets.splice(index, 1);
+                this.storage.set(this.storageKey, JSON.stringify(wallets));
+            })
+        )
+    }
+
     modifyWallet (wallet:Wallet):Observable<Wallet>{
         return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
+            this.storage.get(this.storageKey).then((walletsString:string) => {
+                let wallets:Wallet[] = JSON.parse(walletsString);
                 let index = this.getIndex(wallets, wallet.id);
                 wallets[index] = wallet;
-                this.storage.set(this.storageKey, wallet);
+                this.storage.set(this.storageKey, JSON.stringify(wallets));
                 return wallet;
             })
         )
     }
-
-    deleteWallet (walletId):Observable<any> {
-        return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((wallets:Wallet[]) => {
-                let index = this.getIndex(wallets, walletId);
-                wallets.splice(index, 1);
-                this.storage.set(this.storageKey, wallets);
-            })
-        )
-    }
-
 
 }
