@@ -51,10 +51,22 @@ export class CashFlowService {
     deleteCashFlow(cashFlowId:number){
         return Observable.fromPromise(
             this.storage.get(this.storageKey).then((cashFlowsString:string) => {
-                console.log(cashFlowId);
                 let cashFlows:CashFlow[] = JSON.parse(cashFlowsString);
                 let index = this.getIndex(cashFlows, cashFlowId);
                 cashFlows.splice(index, 1);
+                this.storage.set(this.storageKey, JSON.stringify(cashFlows));
+            })
+        )
+    }
+
+    deleteCashFlows(deleteCashFlows:CashFlow[]){
+        return Observable.fromPromise(
+            this.storage.get(this.storageKey).then((cashFlowsString:string) => {
+                let cashFlows:CashFlow[] = JSON.parse(cashFlowsString);
+                for (let cashFlow of deleteCashFlows) {
+                    let index = this.getIndex(cashFlows, cashFlow.id);
+                    cashFlows.splice(index, 1);
+                }
                 this.storage.set(this.storageKey, JSON.stringify(cashFlows));
             })
         )

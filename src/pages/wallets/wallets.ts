@@ -61,8 +61,7 @@ export class WalletsPage implements OnInit {
                             .subscribe(() => {
                                 this.cashFlowService.getCashFlows(this.wallets[index].id)
                                     .subscribe((cashFlows:CashFlow[]) => {
-                                        console.log(cashFlows);
-                                        cashFlows.map(cashFlow => {this.cashFlowService.deleteCashFlow(cashFlow.id)});
+                                        this.cashFlowService.deleteCashFlows(cashFlows);
                                     });
                                 this.wallets.splice(index, 1);
                                 this.getTotalAmount();
