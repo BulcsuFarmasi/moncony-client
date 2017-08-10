@@ -45,6 +45,7 @@ export class AddCashFlowComponent implements OnInit{
                         } else {
                             this.walletmodified.emit({wallet: this.wallet, cashFlow: this.cashFlow})
                         }
+                        this.cashFlow = new CashFlow();
                     });
             })
     }
