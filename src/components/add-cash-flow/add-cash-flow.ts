@@ -34,7 +34,7 @@ export class AddCashFlowComponent implements OnInit{
         this.cashFlowService.addCashFlow(this.cashFlow)
             .subscribe((cashFlow:CashFlow) => {
                 this.cashFlow = cashFlow;
-                this.wallet.amount += this.cashFlow.amount;
+                this.wallet.amount = this.cashFlow.amount;
                 this.walletService.modifyWallet(this.wallet)
                     .subscribe((wallet:Wallet) => {
                         this.wallet = wallet;

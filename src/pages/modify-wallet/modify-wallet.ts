@@ -28,6 +28,7 @@ export class ModifyWalletPage implements OnInit{
     }
 
     modifyWallet() {
+        this.wallet.amount = 0;
         this.walletService.modifyWallet(this.wallet)
             .subscribe((wallet:Wallet) => {
             this.wallet = wallet;

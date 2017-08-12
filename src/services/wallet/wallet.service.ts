@@ -77,8 +77,10 @@ export class WalletService{
             this.storage.get(this.storageKey).then((walletsString:string) => {
                 let wallets:Wallet[] = JSON.parse(walletsString);
                 let index = this.getIndex(wallets, wallet.id);
+                wallet.amount = wallets[index].amount + wallet.amount;
                 wallets[index] = wallet;
                 this.storage.set(this.storageKey, JSON.stringify(wallets));
+                console.log(wallet);
                 return wallet;
             })
         )
