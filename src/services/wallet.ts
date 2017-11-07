@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage'
 
 import { Observable } from 'rxjs/Rx';
 
-import { Wallet } from '../../models/wallet/wallet';
+import { Wallet } from '../models/wallet/wallet';
 
 @Injectable()
 export class WalletService{

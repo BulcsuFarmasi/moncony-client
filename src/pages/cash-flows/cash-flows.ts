@@ -8,8 +8,8 @@ import { CashFlow } from '../../models/cash-flow/cash-flow';
 import { AddCashFlowPage } from '../add-cash-flow/add-cash-flow'
 import { ModifyCashFlowPage } from "../modify-cash-flow/modify-cash-flow";
 
-import { CashFlowService } from '../../services/cash-flow/cash-flow.service';
-import { WalletService } from '../../services/wallet/wallet.service';
+import { CashFlowService } from '../../services/cash-flow';
+import { WalletService } from '../../services/wallet';
 
 @Component({
     selector: 'page-cash-flows',

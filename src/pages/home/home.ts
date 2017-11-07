@@ -4,7 +4,7 @@ import { Events, NavController } from 'ionic-angular';
 
 import { Wallet } from '../../models/wallet/wallet';
 
-import { WalletService } from '../../services/wallet/wallet.service';
+import { WalletService } from '../../services/wallet';
 
 import { WalletsPage } from '../../pages/wallets/wallets';
 

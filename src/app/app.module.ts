@@ -10,8 +10,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { AppComponent } from './app.component';
 import { AddCashFlowComponent } from '../components/add-cash-flow/add-cash-flow'
 
-import { CashFlowService } from '../services/cash-flow/cash-flow.service';
-import { WalletService } from '../services/wallet/wallet.service';
+import { CashFlowService } from '../services/cash-flow';
+import { WalletService } from '../services/wallet';
 
 import { AddCashFlowPage } from '../pages/add-cash-flow/add-cash-flow';
 import { AddWalletPage } from '../pages/add-wallet/add-wallet';

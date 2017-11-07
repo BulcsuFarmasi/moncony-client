@@ -4,7 +4,7 @@ import { NavParams, ViewController }  from 'ionic-angular';
 
 import { Wallet } from '../../models/wallet/wallet';
 
-import { WalletService } from '../../services/wallet/wallet.service';
+import { WalletService } from '../../services/wallet';
 
 @Component({
     selector:'page-modify-wallet',

@@ -3,8 +3,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CashFlow } from '../../models/cash-flow/cash-flow';
 import { Wallet } from '../../models/wallet/wallet';
 
-import { CashFlowService } from "../../services/cash-flow/cash-flow.service";
-import { WalletService } from "../../services/wallet/wallet.service";
+import { CashFlowService } from "../../services/cash-flow";
+import { WalletService } from "../../services/wallet";
 
 @Component({
     selector:'add-cash-flow',
