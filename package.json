@@ -1,6 +1,6 @@
 {
-    "name": "wallets-mongodb",
-    "version": "0.0.1",
+    "name": "montrack",
+    "version": "0.0.3",
     "author": "Ionic Framework",
     "homepage": "http://ionicframework.com/",
     "private": true,
