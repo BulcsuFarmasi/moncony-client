@@ -1,5 +1,5 @@
-export class Wallet {
-    public id:number;
-    public name:string;
-    public amount:number;
+export interface Wallet {
+    id:number;
+    name:string;
+    amount:number;
 }

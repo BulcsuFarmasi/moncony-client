@@ -1,7 +1,7 @@
-export class CashFlow {
-    public id:number;
-    public walletId:number;
-    public amount:number;
-    public text:string;
-    public date:Date
+export interface CashFlow {
+    id:number;
+    walletId:number;
+    amount:number;
+    text:string;
+    date:Date
 }
