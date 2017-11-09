@@ -45,7 +45,7 @@ export class AddCashFlowComponent implements OnInit{
                         } else {
                             this.walletmodified.emit({wallet: this.wallet, cashFlow: this.cashFlow})
                         }
-                        delete this.cashFlow;
+                        this.cashFlow = {};
                     });
             })
     }

@@ -30,6 +30,7 @@ export class WalletsPage implements OnInit {
 
     ngOnInit (){
         this.getWallets();
+        this.getTotalAmount();
     }
 
     ionViewWillLeave() {
