@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage'
 
 import { Observable } from 'rxjs/Rx';
 
-import { CashFlow } from '../models/cash-flow/cash-flow'
+import { CashFlow } from '../models/cash-flow'
 
 @Injectable()
 

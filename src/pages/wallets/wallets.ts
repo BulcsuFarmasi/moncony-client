@@ -4,8 +4,8 @@ import {Alert, AlertController, Events, Modal, ModalController, NavController, N
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
-import { CashFlow } from '../../models/cash-flow/cash-flow';
-import { Wallet } from '../../models/wallet/wallet';
+import { CashFlow } from '../../models/cash-flow';
+import { Wallet } from '../../models/wallet';
 
 import { CashFlowService } from '../../services/cash-flow';
 import { WalletService } from '../../services/wallet';

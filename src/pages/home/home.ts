@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Events, NavController } from 'ionic-angular';
 
-import { Wallet } from '../../models/wallet/wallet';
+import { Wallet } from '../../models/wallet';
 
 import { WalletService } from '../../services/wallet';
 

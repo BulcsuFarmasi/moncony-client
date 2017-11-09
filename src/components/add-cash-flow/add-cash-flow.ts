@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { CashFlow } from '../../models/cash-flow/cash-flow';
-import { Wallet } from '../../models/wallet/wallet';
+import { CashFlow } from '../../models/cash-flow';
+import { Wallet } from '../../models/wallet';
 
 import { CashFlowService } from "../../services/cash-flow";
 import { WalletService } from "../../services/wallet";
@@ -45,7 +45,7 @@ export class AddCashFlowComponent implements OnInit{
                         } else {
                             this.walletmodified.emit({wallet: this.wallet, cashFlow: this.cashFlow})
                         }
-                        this.cashFlow = new CashFlow();
+                        delete this.cashFlow;
                     });
             })
     }
@@ -55,7 +55,13 @@ export class AddCashFlowComponent implements OnInit{
     }
 
     getCashFlow (){
-        this.cashFlow = new CashFlow();
+        this.cashFlow = {
+            id:0,
+            walletId:0,
+            amount:0,
+            text:'',
+            date: new Date()
+        }
         if (this.wallet) {
             this.cashFlow.walletId = this.wallet.id
         }

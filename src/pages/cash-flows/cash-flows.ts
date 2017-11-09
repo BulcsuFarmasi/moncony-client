@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 import { Alert, AlertController, Events, Modal, ModalController, NavController, NavParams } from 'ionic-angular';
 
-import { Wallet } from '../../models/wallet/wallet';
-import { CashFlow } from '../../models/cash-flow/cash-flow';
+import { Wallet } from '../../models/wallet';
+import { CashFlow } from '../../models/cash-flow';
 
 import { AddCashFlowPage } from '../add-cash-flow/add-cash-flow'
 import { ModifyCashFlowPage } from "../modify-cash-flow/modify-cash-flow";

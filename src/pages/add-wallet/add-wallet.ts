@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { ViewController }  from 'ionic-angular';
 
-import { CashFlow } from '../../models/cash-flow/cash-flow';
-import { Wallet } from '../../models/wallet/wallet';
+import { CashFlow } from '../../models/cash-flow';
+import { Wallet } from '../../models/wallet';
 
 import { CashFlowService } from '../../services/cash-flow';
 import { WalletService } from '../../services/wallet';
@@ -28,11 +28,13 @@ export class AddWalletPage implements OnInit{
     addWallet() {
         this.walletService.addWallet(this.wallet)
             .subscribe((wallet:Wallet) => {
-                let cashFlow:CashFlow = new CashFlow();
-                cashFlow.walletId = wallet.id;
-                cashFlow.amount = wallet.amount;
-                cashFlow.text = 'Kezdő összeg';
-                cashFlow.date = new Date();
+                let cashFlow:CashFlow = {
+                    id:0,
+                    walletId: wallet.id,
+                    amount: wallet.amount,
+                    text: 'Kezdő összeg',
+                    date: new Date()
+                }
                 this.cashFlowService.addCashFlow(cashFlow)
                     .subscribe(() => {
                         this.viewController.dismiss(this.wallet);
@@ -41,6 +43,10 @@ export class AddWalletPage implements OnInit{
     }
 
     getWallet () {
-        this.wallet = new Wallet();
+        this.wallet = {
+            id:0,
+            amount:0,
+            name: ''
+        };
     }
 }
