@@ -1,86 +1,62 @@
 import { Injectable } from '@angular/core'
 
-import { Storage } from '@ionic/storage'
 
 import { Observable } from 'rxjs/Rx';
 
 import { CashFlow } from '../models/cash-flow'
 
+import { StorageService } from './storage'
+
 @Injectable()
 
 export class CashFlowService {
+    private cashFlows = CashFlow[];
     private storageKey:string = 'cashFlows';
-    constructor(private storage:Storage){}
+    constructor(private storageService:StorageService){}
 
     addCashFlow(cashFlow:CashFlow):Observable<CashFlow> {
+        const length = this.cashFlows.length;
+        cashFlow.id = (length > 0) ? this.cashFlows[length - 1].id + 1  : 1;
+        this.wallets.push(wallet);
         return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((cashFlowsString:string) => {
-                var id:number;
-                var cashFlows:CashFlow[] = JSON.parse(cashFlowsString);;
-                if (cashFlows && cashFlows.length > 0) {
-                    id = cashFlows[cashFlows.length - 1].id + 1;
-                } else {
-                    if (!cashFlows) {
-                        cashFlows = [];
-                    }
-                    id = 1;
-                }
-                cashFlow.id = id;
-                cashFlows.push(cashFlow);
-                this.storage.set(this.storageKey, JSON.stringify(cashFlows));
-                return cashFlow;
+            this.storageService.set(key, this.wallets).then(() => {
+                return wallet;
             })
-        )
+        );
     }
 
-    getCashFlows(walletId:number): Observable<CashFlow[]>{
-        return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((cashFlowString:string) => {
-                let cashFlows:CashFlow[] = JSON.parse(cashFlowString);
-                return cashFlows.filter((cashFlow) => {
-                    return cashFlow.walletId == walletId;
-                })
-            })
-        )
+    getCashFlowsByWalletId(walletId:number): Observable<CashFlow[]>{
+        return this.cashFlows.filter((cashFlow) => {
+            return cashFlow.walletId == walletId;
+        }
     }
 
-    getIndex (cashFlows:CashFlow[], id:number) {
-        return cashFlows.findIndex(cashFlow => cashFlow.id == id);
+    getIndex (id:number) {
+        return this.cashFlows.findIndex(cashFlow => cashFlow.id == id);
     }
 
     deleteCashFlow(cashFlowId:number){
+        const index = this.getIndex(id);
+        this.cashFlows.splice(index, 1);
         return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((cashFlowsString:string) => {
-                let cashFlows:CashFlow[] = JSON.parse(cashFlowsString);
-                let index = this.getIndex(cashFlows, cashFlowId);
-                cashFlows.splice(index, 1);
-                this.storage.set(this.storageKey, JSON.stringify(cashFlows));
+            this.storage.set(this.storageKey, this.wallets);
             })
         )
     }
 
-    deleteCashFlows(deleteCashFlows:CashFlow[]){
-        return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((cashFlowsString:string) => {
-                let cashFlows:CashFlow[] = JSON.parse(cashFlowsString);
-                for (let cashFlow of deleteCashFlows) {
-                    let index = this.getIndex(cashFlows, cashFlow.id);
-                    cashFlows.splice(index, 1);
-                }
-                this.storage.set(this.storageKey, JSON.stringify(cashFlows));
-            })
-        )
+
+
+    loadCashFlowss ():Obserable<Wallet[]> {
+        this.storageService.get(key).then((cashFlows:CashFlows[]) => {
+              this.cashFlows = cashFlows;
+        })
     }
 
     modifyCashFlow(cashFlow:CashFlow){
-        return Observable.fromPromise(
-            this.storage.get(this.storageKey).then((cashFlowsString:string) => {
-                let cashFlows:CashFlow[] = JSON.parse(cashFlowsString);
-                let index = this.getIndex(cashFlows, cashFlow.id);
-                cashFlows[index] = cashFlow;
-                this.storage.set(this.storageKey, JSON.stringify(cashFlows));
-                return cashFlow;
-            })
+        let index = this.getIndex(wallet.id);
+        this.cashFlows[index] = cashFlow;
+        return Obserable.fromPromise(
+            this.storage.set(this.key, this.wallets);
         )
     }
 }
