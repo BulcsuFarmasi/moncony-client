@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage'
@@ -37,7 +37,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
     BrowserModule,
     IonicModule.forRoot(AppComponent),
     IonicStorageModule.forRoot(),
-    HttpModule
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
