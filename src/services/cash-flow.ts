@@ -46,7 +46,7 @@ export class CashFlowService {
 
 
 
-    loadCashFlowss ():Obserable<Wallet[]> {
+    loadCashFlows ():Obserable<Wallet[]> {
         this.storageService.get(key).then((cashFlows:CashFlows[]) => {
               this.cashFlows = cashFlows;
         })
