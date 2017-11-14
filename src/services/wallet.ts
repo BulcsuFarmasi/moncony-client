@@ -8,16 +8,16 @@ import { Wallet } from '../models/wallet';
 
 @Injectable()
 export class WalletService{
-    private key:string = 'wallets';
+    private storageKey:string = 'wallets';
     private wallets:Wallet[] = [];
-    constructor(private storageServcie:StorageService){}
+    constructor(private storageService:StorageService){}
 
-    addWallet (wallet:Wallet):Observable<Wallet>
+    addWallet (wallet:Wallet):Observable<Wallet> {
         const length = this.wallets.length
         wallet.id = (length > 0) ? this.wallets[length - 1].id : 1;
         this.wallets.push(wallet);
         return Observable.fromPromise(
-            this.storageService.set(key, this.wallets).then(() => {
+            this.storageService.set(this.storageKey, this.wallets).then(() => {
                 return wallet;
             })
         );
@@ -28,12 +28,12 @@ export class WalletService{
     }
 
     getWallet (id:number):Wallet {
-         return this.wallets.find(wallet => wallet.id == id)
-        )
+         return this.wallets.find(wallet => wallet.id == id);
+
 ;    }
 
-    getWallets ():Observable<Wallet[]> {
-        return this.wallets.splice();
+    getWallets ():Wallet[] {
+        return this.wallets.slice();
     }
 
     getTotalAmount ():number {
@@ -46,13 +46,12 @@ export class WalletService{
         const index = this.getIndex(id);
         this.wallets.splice(index, 1);
         return Observable.fromPromise(
-                this.storage.set(this.storageKey, this.wallets);
-            })
-        )
+                this.storageService.set(this.storageKey, this.wallets)
+            )
     }
 
-    loadWallets ():Obserable<Wallet[]> {
-         this.storageService.get(key).then((wallets:Wallet[]) => {
+    loadWallets ():void {
+         this.storageService.get(this.storageKey).then((wallets:Wallet[]) => {
               this.wallets = wallets
          })
     }
@@ -61,8 +60,8 @@ export class WalletService{
         let index = this.getIndex(wallet.id);
         wallet.amount = this.wallets[index].amount + wallet.amount
         this.wallets[index] = wallet;
-        return Obserable.fromPromise(
-            this.storage.set(this.key, this.wallets).then(() => wallet);
+        return Observable.fromPromise(
+            this.storageService.set(this.storageKey, this.wallets).then(() => wallet)
         )
     }
 
