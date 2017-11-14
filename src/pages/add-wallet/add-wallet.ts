@@ -27,7 +27,7 @@ export class AddWalletPage implements OnInit{
 
     addWallet() {
         this.walletService.addWallet(this.wallet)
-            .subscribe((wallet:Wallet) => {
+            .switchMap((wallet:Wallet) => {
                 let cashFlow:CashFlow = {
                     id:0,
                     walletId: wallet.id,
@@ -35,11 +35,11 @@ export class AddWalletPage implements OnInit{
                     text: 'Kezdő összeg',
                     date: new Date()
                 }
-                this.cashFlowService.addCashFlow(cashFlow)
-                    .subscribe(() => {
-                        this.viewController.dismiss(this.wallet);
-                    });
-            });
+                return this.cashFlowService.addCashFlow(cashFlow)
+            })
+            .subscribe(() => {
+                this.viewController.dismiss(this.wallet);
+            });;
     }
 
     getWallet () {
