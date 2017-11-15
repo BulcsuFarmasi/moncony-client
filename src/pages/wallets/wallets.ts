@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import {Alert, AlertController, Events, Modal, ModalController, NavController, NavParams} from 'ionic-angular';
 
@@ -18,7 +18,7 @@ import { ModifyWalletPage } from '../modify-wallet/modify-wallet';
     templateUrl: './wallets.html'
 })
 
-export class WalletsPage implements OnInit {
+export class WalletsPage  {
 
     public wallets:Wallet[];
     public totalAmount:number;
