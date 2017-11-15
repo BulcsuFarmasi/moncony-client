@@ -25,8 +25,7 @@ export class WalletsPage implements OnInit {
 
     constructor(private walletService:WalletService, private cashFlowService: CashFlowService,
                 private alertController:AlertController, private navController:NavController, 
-                private modalController:ModalController, private events:Events, 
-                private navParams:NavParams){}
+                private modalController:ModalController, private events:Events){}
 
     ionViewWillEnter () {
         this.getWallets();
