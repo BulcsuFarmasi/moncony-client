@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { StorageService } from './storage';
 
 import { Observable } from 'rxjs/Rx';
+import  'rxjs/add/operator/do';
 
 import { Wallet } from '../models/wallet';
 
@@ -50,10 +51,10 @@ export class WalletService{
             )
     }
 
-    loadWallets ():void {
-         this.storageService.get(this.storageKey).then((wallets:Wallet[]) => {
-              this.wallets = wallets
-         })
+    loadWallets ():Observable<Wallet[]> {
+        let wallets = Observable.fromPromise(this.storageService.get(this.storageKey));
+        wallets.do((wallets:Wallet[]) => this.wallets = wallets);
+        return wallets;
     }
 
     modifyWallet (wallet:Wallet):Observable<Wallet> {
