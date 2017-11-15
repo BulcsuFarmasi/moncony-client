@@ -39,7 +39,7 @@ export class AddCashFlowComponent implements OnInit{
                     .subscribe((wallet:Wallet) => {
                         this.wallet = wallet;
                         if(this.wallets) {
-                            let index = this.walletService.getIndex(this.wallets, this.wallet.id);
+                            let index = this.walletService.getIndex(this.wallet.id);
                             this.wallets[index] = this.wallet;
                             this.walletsmodified.emit(this.wallets);
                         } else {
