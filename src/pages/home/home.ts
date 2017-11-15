@@ -21,20 +21,26 @@ export class HomePage implements OnInit{
                 private events:Events){}
 
     ngOnInit(){
+        this.loadWallets();
+    }
+
+    ionViewWillEnter () {
         this.getWallets();
     }
 
     getWallets () {
-        this.walletService.getWallets()
-            .subscribe((wallets:Wallet[]) =>{
-                this.wallets = wallets;
-                console.log(this.wallets);
-            })
+        this.wallets = this.walletService.getWallets();
     }
 
     goToWallets () {
-        this.navController.push(WalletsPage, {wallets: this.wallets});
+        this.navController.push(WalletsPage);
         this.returnFromWallets();
+    }
+
+    loadWallets () {
+        this.walletService.loadWallets().subscribe(
+            (wallets:Wallet[]) => {this.wallets = wallets}
+        );
     }
 
     returnFromWallets () {

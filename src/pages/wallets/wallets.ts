@@ -28,13 +28,9 @@ export class WalletsPage implements OnInit {
                 private modalController:ModalController, private events:Events, 
                 private navParams:NavParams){}
 
-    ngOnInit (){
+    ionViewWillEnter () {
         this.getWallets();
         this.getTotalAmount();
-    }
-
-    ionViewWillLeave() {
-        this.events.publish('wallets:modified', this.wallets);
     }
 
     addWallet() {
@@ -77,11 +73,11 @@ export class WalletsPage implements OnInit {
     }
 
     getWallets() {
-        this.wallets = this.navParams.get('wallets');
+        this.wallets = this.walletService.getWallets();
     }
 
     getTotalAmount () {
-        this.totalAmount = this.walletService.getTotalAmount(this.wallets);
+        this.totalAmount = this.walletService.getTotalAmount();
     }
 
     goToCashFlows(index:number) {
