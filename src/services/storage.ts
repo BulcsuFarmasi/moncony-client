@@ -9,7 +9,8 @@ export class StorageService {
     constructor (private storage:Storage) {}
 
     get (key:string):Promise<any> {
-        return this.storage.get(key).then((value) => JSON.parse(value));
+        return this.storage.get(key)
+               .then((value:any) => JSON.parse(value));
     }
 
     set (key:string, value:any):Promise {
