@@ -20,12 +20,17 @@ export class CashFlowsPage implements OnInit {
     public cashFlows:CashFlow[];
     public wallet:Wallet;
 
+
+
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService,
                 private navParams:NavParams, private alertController:AlertController,
                 private modalController:ModalController, private events:Events){}
 
     ngOnInit () {
         this.getWallet();
+        this.loadCashFlows();
+    }
+    ionViewWillEnter () {
         this.getCashFlows();
     }
 
@@ -34,8 +39,7 @@ export class CashFlowsPage implements OnInit {
     }
 
     getCashFlows () {
-        this.cashFlowService.getCashFlows(this.wallet.id)
-            .subscribe((cashFlows:CashFlow[]) => {this.cashFlows = cashFlows});
+        this.cashFlows = this.cashFlowService.getCashFlowsByWalletId(this.wallet.id);
     }
 
     getWallet () {
@@ -77,6 +81,13 @@ export class CashFlowsPage implements OnInit {
         })
         confirm.present();
     }
+
+    loadCashFlows () {
+        this.cashFlowService.loadCashFlows().then(() => {
+            this.getCashFlows();
+        })
+    }
+
     modifyCashFlow (index:number) {
         let modal:Modal = this.modalController.create(ModifyCashFlowPage,
             {wallet: this.wallet, cashFlow: this.cashFlows[index]});
