@@ -55,12 +55,10 @@ export class WalletsPage  {
                     'handler': () => {
                         this.walletService.deleteWallet(this.wallets[index].id)
                             .subscribe(() => {
-                                this.cashFlowService.getCashFlows(this.wallets[index].id)
-                                    .subscribe((cashFlows:CashFlow[]) => {
-                                        for (cashFlow of cashFlows) {
-                                            this.cashFlowService.delete(cashFlow.id);
-                                        }
-                                    });
+                                let cashFlows = this.cashFlowService.getCashFlowsByWalletId(this.wallets[index].id)
+                                for (let cashFlow of cashFlows) {
+                                     this.cashFlowService.deleteCashFlow(cashFlow.id);
+                                }
                                 this.wallets.splice(index, 1);
                                 this.getTotalAmount();
                             });
@@ -73,6 +71,7 @@ export class WalletsPage  {
 
     getWallets() {
         this.wallets = this.walletService.getWallets();
+        console.log(this.wallets);
     }
 
     getTotalAmount () {
