@@ -45,9 +45,12 @@ export class CashFlowService {
 
 
 
-    loadCashFlows ():Promise {
+    loadCashFlows ():Promise<CashFlow[]> {
         return this.storageService.get(this.storageKey)
-            .then((cashFlows:CashFlow[]) => {this.cashFlows = cashFlows});
+            .then((cashFlows:CashFlow[]) => {
+            this.cashFlows = cashFlows
+            return cashFlows;
+        });
     }
 
     modifyCashFlow (cashFlow) {
