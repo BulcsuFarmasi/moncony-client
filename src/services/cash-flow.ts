@@ -14,15 +14,13 @@ export class CashFlowService {
     private storageKey:string = 'cashFlows';
     constructor(private storageService:StorageService){}
 
-    addCashFlow(cashFlow:CashFlow):Observable<CashFlow> {
+    addCashFlow(cashFlow:CashFlow):Promise<CashFlow> {
         const length = this.cashFlows.length;
         cashFlow.id = (length > 0) ? this.cashFlows[length - 1].id + 1  : 1;
         this.cashFlows.push(cashFlow);
-        return Observable.fromPromise(
-            this.storageService.set(this.storageKey, this.cashFlows).then(() => {
+        return this.storageService.set(this.storageKey, this.cashFlows).then(() => {
                 return cashFlow;
-            })
-        );
+        })
     }
 
     getCashFlowsByWalletId(walletId:number): CashFlow[]{

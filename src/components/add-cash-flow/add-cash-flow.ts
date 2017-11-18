@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
+
+import { NgForm } from '@angular/forms';
 
 import { CashFlow } from '../../models/cash-flow';
 import { Wallet } from '../../models/wallet';
@@ -12,45 +14,40 @@ import { WalletService } from "../../services/wallet";
 })
 
 export class AddCashFlowComponent implements OnInit{
-    
+
+    @Input() wallets:Wallet[];
+    @Output() formSubmit:EventEmitter<any> = new EventEmitter();
     public cashFlow:CashFlow;
     public cashFlowType:number = 1;
-    @Input() wallet:Wallet;
-    @Output() walletmodified:EventEmitter<{wallet:Wallet, cashFlow:CashFlow}> = new EventEmitter();
-    @Output() walletsmodified:EventEmitter<Wallet[]> = new EventEmitter();
-    @Input() wallets:Wallet[];
+    private wallet:Wallet;
 
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService){}
 
     ngOnInit () {
+        this.getWallet();
         this.getCashFlow();
     }
 
-    addCashFlow() {
+    addCashFlow(form:NgForm) {
         this.cashFlow.date = new Date();
         if (this.cashFlowType == -1) {
             this.cashFlow.amount *= this.cashFlowType;
         }
         this.cashFlowService.addCashFlow(this.cashFlow)
-            .subscribe((cashFlow:CashFlow) => {
+            .then((cashFlow:CashFlow) => {
                 this.cashFlow = cashFlow;
                 this.wallet.amount = this.cashFlow.amount;
                 this.walletService.modifyWallet(this.wallet)
-                    .subscribe((wallet:Wallet) => {
+                    .then((wallet:Wallet) => {
                         this.wallet = wallet;
-                        if(this.wallets) {
-                            let index = this.walletService.getIndex(this.wallet.id);
-                            this.wallets[index] = this.wallet;
-                            this.walletsmodified.emit(this.wallets);
-                        } else {
-                            this.walletmodified.emit({wallet: this.wallet, cashFlow: this.cashFlow})
-                        }
-                        this.cashFlow = {};
+                        let index = this.walletService.getIndex(this.wallet.id);
+                        this.wallets[index] = this.wallet;
+                        form.reset();
                     });
             })
     }
 
-    changeWalletId () {
+    changeWallet () {
         this.cashFlow.walletId = this.wallet.id
     }
 
@@ -66,4 +63,12 @@ export class AddCashFlowComponent implements OnInit{
             this.cashFlow.walletId = this.wallet.id
         }
     }
+
+    getWallet () {
+        if (this.wallets.length == 1) {
+            this.wallet = this.wallets[0];
+        }
+    }
+
+
 }

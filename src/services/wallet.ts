@@ -59,13 +59,11 @@ export class WalletService{
         })
     }
 
-    modifyWallet (wallet:Wallet):Observable<Wallet> {
+    modifyWallet (wallet:Wallet):Promise<Wallet> {
         let index = this.getIndex(wallet.id);
         wallet.amount = this.wallets[index].amount + wallet.amount
         this.wallets[index] = wallet;
-        return Observable.fromPromise(
-            this.storageService.set(this.storageKey, this.wallets).then(() => wallet)
-        )
+        return this.storageService.set(this.storageKey, this.wallets).then(() => wallet);
     }
 
 }
