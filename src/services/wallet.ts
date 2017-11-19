@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 
 
-import { Observable } from 'rxjs/Rx';
-import  'rxjs/Rx';
-
-
 import { Wallet } from '../models/wallet';
 
 import { HelperService } from "./helper";
@@ -37,11 +33,12 @@ export class WalletService{
     }
 
     getWallet (id:number):Wallet {
-         return this.wallets.find(wallet => wallet.id == id);
+         const wallet = this.wallets.find(wallet => wallet.id == id);
+         return this.helperService.copy(wallet);
    }
 
     getWallets ():Wallet[] {
-        return this.helperService.cloneArray(this.wallets);
+        return this.helperService.copy(this.wallets);
     }
 
     getTotalAmount ():number {
@@ -58,13 +55,14 @@ export class WalletService{
                 return wallet;
             });
             this.wallets = wallets;
-            return this.helperService.cloneArray(wallets);
+            return this.helperService.copy(wallets);
         })
     }
 
     modifyWallet (wallet:Wallet):Promise<Wallet> {
         let index = this.getIndex(wallet.id);
         wallet.amount = this.wallets[index].amount + wallet.amount;
+        console.log(wallet);
         this.wallets[index] = wallet;
         return this.storageService.set(this.storageKey, this.wallets).then(() => wallet);
     }

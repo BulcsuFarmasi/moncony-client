@@ -32,6 +32,10 @@ export class ModifyCashFlowPage implements OnInit{
         this.oldCashFlowAmount = this.cashFlow.amount;
     }
 
+    dismiss () {
+        this.viewController.dismiss();
+    }
+
     getWallet () {
         this.wallet = this.navParams.get('wallet');
     }
@@ -43,7 +47,7 @@ export class ModifyCashFlowPage implements OnInit{
                 this.wallet.amount = (this.oldCashFlowAmount - this.cashFlow.amount) * -1;
                 this.walletService.modifyWallet(this.wallet)
                     .then(() => {
-                        this.viewController.dismiss()
+                        this.dismiss();
                     } );
             })
     }

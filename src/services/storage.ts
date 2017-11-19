@@ -13,7 +13,7 @@ export class StorageService {
                .then((value:any) => JSON.parse(value));
     }
 
-    set (key:string, value:any):Promise {
+    set (key:string, value:any):Promise<any> {
         value = JSON.stringify(value);
         return this.storage.set(key, value);
     }
