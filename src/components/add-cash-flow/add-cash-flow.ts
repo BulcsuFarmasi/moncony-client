@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, Input, EventEmitter, OnChanges, Output } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 
@@ -13,7 +13,7 @@ import { WalletService } from "../../services/wallet";
     templateUrl:'./add-cash-flow.html'
 })
 
-export class AddCashFlowComponent implements OnInit{
+export class AddCashFlowComponent implements OnChanges {
 
     @Input() wallets:Wallet[];
     @Output() formSubmit:EventEmitter<any> = new EventEmitter();
@@ -23,32 +23,31 @@ export class AddCashFlowComponent implements OnInit{
 
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService){}
 
-    ngOnInit () {
-        this.getWallet();
+    ngOnChanges () {
         this.getCashFlow();
+        this.getWallet();
     }
 
     addCashFlow(form:NgForm) {
         this.cashFlow.date = new Date();
-        if (this.cashFlowType == -1) {
-            this.cashFlow.amount *= this.cashFlowType;
-        }
+        this.cashFlow.amount *= this.cashFlowType;
         this.cashFlowService.addCashFlow(this.cashFlow)
             .then((cashFlow:CashFlow) => {
                 this.cashFlow = cashFlow;
+                console.log(this.cashFlow);
                 this.wallet.amount = this.cashFlow.amount;
                 this.walletService.modifyWallet(this.wallet)
-                    .then((wallet:Wallet) => {
-                        this.wallet = wallet;
-                        let index = this.walletService.getIndex(this.wallet.id);
-                        this.wallets[index] = this.wallet;
+                    .then(() => {
                         form.reset();
                     });
             })
     }
 
-    changeWallet () {
-        this.cashFlow.walletId = this.wallet.id
+    changeWallet (wallet:Wallet) {
+        if(wallet){
+            this.wallet = wallet;
+            this.cashFlow.walletId = this.wallet.id
+        }
     }
 
     getCashFlow (){
@@ -58,15 +57,14 @@ export class AddCashFlowComponent implements OnInit{
             amount:0,
             text:'',
             date: new Date()
-        }
-        if (this.wallet) {
-            this.cashFlow.walletId = this.wallet.id
-        }
+        };
     }
 
     getWallet () {
+        console.log(this.wallets);
         if (this.wallets.length == 1) {
             this.wallet = this.wallets[0];
+            this.cashFlow.walletId = this.wallet.id
         }
     }
 

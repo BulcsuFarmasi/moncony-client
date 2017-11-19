@@ -38,7 +38,6 @@ export class HomePage implements OnInit{
     }
 
     loadWallets () {
-        console.log(this.walletService.loadWallets());
         this.walletService.loadWallets().then(
             (wallets:Wallet[]) => {this.wallets = wallets}
         );

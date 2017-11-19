@@ -16,7 +16,7 @@ import { WalletService } from '../../services/wallet';
     templateUrl: 'cash-flows.html'
 })
 
-export class CashFlowsPage implements OnInit {
+export class CashFlowsPage implements OnInit{
     public cashFlows:CashFlow[];
     public wallet:Wallet;
 

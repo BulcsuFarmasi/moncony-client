@@ -71,7 +71,6 @@ export class WalletsPage  {
 
     getWallets() {
         this.wallets = this.walletService.getWallets();
-        console.log(this.wallets);
     }
 
     getTotalAmount () {
