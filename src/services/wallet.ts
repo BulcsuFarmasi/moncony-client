@@ -26,6 +26,12 @@ export class WalletService{
         });
     }
 
+    deleteWallet (id):Promise<any> {
+        const index = this.getIndex(id);
+        this.wallets.splice(index, 1);
+        return this.storageService.set(this.storageKey, this.wallets);
+    }
+
     getIndex (id:number) {
         return this.wallets.findIndex((wallet) => wallet.id === id)
     }
@@ -43,14 +49,6 @@ export class WalletService{
         return this.wallets.reduce((totalAmount:number, wallet:Wallet) => {
             return totalAmount + wallet.amount;
         }, 0)
-    }
-
-    deleteWallet (id):Observable<any> {
-        const index = this.getIndex(id);
-        this.wallets.splice(index, 1);
-        return Observable.fromPromise(
-                this.storageService.set(this.storageKey, this.wallets)
-            )
     }
 
     loadWallets ():Promise<Wallet[]> {

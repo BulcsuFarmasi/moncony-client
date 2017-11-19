@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { AppComponent } from './app.component';
 import { AddCashFlowComponent } from '../components/add-cash-flow/add-cash-flow'
 
+import { AlertService } from '../services/alert';
 import { CashFlowService } from '../services/cash-flow';
 import { HelperService } from '../services/helper';
 import { ModalService } from '../services/modal';
@@ -58,6 +59,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AlertService,
     CashFlowService,
     HelperService,
     ModalService,

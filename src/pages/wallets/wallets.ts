@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import {Alert, AlertController, Events, Modal, NavController } from 'ionic-angular';
+import { Events, NavController } from 'ionic-angular';
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
-import { CashFlow } from '../../models/cash-flow';
 import { Wallet } from '../../models/wallet';
 
+import { AlertService } from '../../services/alert';
 import { CashFlowService } from '../../services/cash-flow';
 import { ModalService } from '../../services/modal';
 import { WalletService } from '../../services/wallet';
@@ -25,7 +25,7 @@ export class WalletsPage  {
     public totalAmount:number;
 
     constructor(private walletService:WalletService, private cashFlowService: CashFlowService,
-                private alertController:AlertController, private navController:NavController, 
+                private alertService:AlertService, private navController:NavController,
                 private modalService:ModalService, private events:Events){}
 
     ionViewWillEnter () {
@@ -43,7 +43,7 @@ export class WalletsPage  {
     }
 
     deleteWallet(index:number) {
-        let confirm:Alert = this.alertController.create({
+        this.alertService.show({
             title: `${this.wallets[index].name} törlése`,
             message: 'Biztos hogy törlöni akarod ezt a pénztárcát?',
             buttons:[
@@ -55,19 +55,18 @@ export class WalletsPage  {
                     'text': 'Törlés',
                     'handler': () => {
                         this.walletService.deleteWallet(this.wallets[index].id)
-                            .subscribe(() => {
+                            .then(() => {
                                 let cashFlows = this.cashFlowService.getCashFlowsByWalletId(this.wallets[index].id)
                                 for (let cashFlow of cashFlows) {
                                      this.cashFlowService.deleteCashFlow(cashFlow.id);
                                 }
-                                this.wallets.splice(index, 1);
+                                this.getWallets();
                                 this.getTotalAmount();
                             });
                     }
                 }
             ]
-        })
-        confirm.present();
+        });
     }
 
     getWallets() {
