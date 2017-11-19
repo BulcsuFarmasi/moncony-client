@@ -42,7 +42,7 @@ export class ModifyCashFlowPage implements OnInit{
                 this.cashFlow = cashFlow;
                 this.wallet.amount = (this.oldCashFlowAmount - this.cashFlow.amount) * -1;
                 this.walletService.modifyWallet(this.wallet)
-                    .subscribe((wallet:Wallet) => {
+                    .then((wallet:Wallet) => {
                         this.wallet = wallet;
                         this.viewController.dismiss({wallet:this.wallet, cashFlow: this.cashFlow})
                     } );

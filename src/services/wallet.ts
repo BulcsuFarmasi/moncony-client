@@ -21,7 +21,7 @@ export class WalletService{
         const length = this.wallets.length;
         wallet.id = (length > 0) ? this.wallets[length - 1].id + 1 : 1;
         this.wallets.push(wallet);
-        this.storageService.set(this.storageKey, this.wallets).then(() => {
+        return this.storageService.set(this.storageKey, this.wallets).then(() => {
             return wallet;
         });
     }

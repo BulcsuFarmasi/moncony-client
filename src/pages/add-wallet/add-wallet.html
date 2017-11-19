@@ -4,21 +4,22 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <form (ngSubmit)="addWallet()"></form>
-    <ion-list>
-        <ion-item>
-          <ion-label floating>Név</ion-label>
-          <ion-input type="text" id="name" [(ngModel)="wallet.name"]></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>Kezdő összeg</ion-label>
-            <ion-input type="text" id="amount" [(ngModel)="wallet.amount"></ion-input>
-        </ion-item>
-        <ion-item>
-             <button type="submit">Küldés</button>
-        </ion-item>
-        <ion-item>
-            <button type="button" color="danger" (click)="back()">Vissza</button>
-        </ion-item>
-    </ion-list>
+    <form (ngSubmit)="addWallet()">
+        <ion-list>
+            <ion-item>
+              <ion-label floating>Név</ion-label>
+              <ion-input type="text" id="name" name="name" [(ngModel)]="wallet.name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Kezdő összeg</ion-label>
+                <ion-input type="text" id="amount" name="amount" [(ngModel)]="wallet.amount"></ion-input>
+            </ion-item>
+            <ion-item>
+                 <button ion-button type="submit">Küldés</button>
+            </ion-item>
+            <ion-item>
+                <button ion-button type="button" color="danger" (click)="dismiss()">Vissza</button>
+            </ion-item>
+        </ion-list>
+    </form>
 </ion-content>

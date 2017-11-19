@@ -26,6 +26,7 @@ export class AddWalletPage implements OnInit{
     }
 
     addWallet() {
+        this.wallet.amount *= 1;
         this.walletService.addWallet(this.wallet)
             .then((wallet:Wallet) => {
                 let cashFlow: CashFlow = {
@@ -37,9 +38,13 @@ export class AddWalletPage implements OnInit{
                 };
                 this.cashFlowService.addCashFlow(cashFlow)
                     .then(() => {
-                        this.viewController.dismiss();
+                        this.dismiss();
                     });
             })
+    }
+
+    dismiss () {
+        this.viewController.dismiss();
     }
 
     getWallet () {

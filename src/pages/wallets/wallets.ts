@@ -38,6 +38,7 @@ export class WalletsPage  {
         console.log(this.modalService.show, this.modalService.onClose);
         this.modalService.onClose(() =>  {
             this.getWallets();
+            this.getTotalAmount();
         })
     }
 
@@ -83,10 +84,9 @@ export class WalletsPage  {
     }
 
     modifyWallet(index:number) {
-        let modal:Modal = this.modalController.create(ModifyWalletPage, {wallet: this.wallets[index]});
-        modal.present();
-        modal.onDidDismiss((wallet:Wallet) => {
-            this.wallets[index] = wallet;
+        this.modalService.show(ModifyWalletPage, {wallet: this.wallets[index]});
+        this.modalService.onClose(() => {
+            this.getWallets();
         })
     }
 
