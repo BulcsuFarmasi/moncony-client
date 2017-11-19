@@ -54,8 +54,6 @@ export class CashFlowService {
     modifyCashFlow (cashFlow) {
         let index = this.getIndex(cashFlow.id);
         this.cashFlows[index] = cashFlow;
-        return Observable.fromPromise(
-            this.storageService.set(this.storageKey, this.cashFlows)
-        )
+        this.storageService.set(this.storageKey, this.cashFlows)
     }
 }

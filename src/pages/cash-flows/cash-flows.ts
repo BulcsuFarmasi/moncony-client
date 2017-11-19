@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {  Modal, ModalController, NavParams } from 'ionic-angular';
+import {  NavParams } from 'ionic-angular';
 
 import { Wallet } from '../../models/wallet';
 import { CashFlow } from '../../models/cash-flow';
@@ -10,6 +10,7 @@ import { ModifyCashFlowPage } from "../modify-cash-flow/modify-cash-flow";
 
 import { AlertService } from '../../services/alert';
 import { CashFlowService } from '../../services/cash-flow';
+import { ModalService } from '../../services/modal';
 import { WalletService } from '../../services/wallet';
 
 @Component({
@@ -25,7 +26,7 @@ export class CashFlowsPage implements OnInit{
 
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService,
                 private navParams:NavParams, private alertService:AlertService,
-                private modalController:ModalController){}
+                private modalService:ModalService){}
 
     ngOnInit () {
         this.getWallet();
@@ -40,15 +41,15 @@ export class CashFlowsPage implements OnInit{
     }
 
     getWallet () {
-        this.wallet=this.navParams.get('wallet');
+        const walletId=this.navParams.get('walletId');
+        this.wallet = this.walletService.getWallet(walletId);
     }
 
     addCashFlow () {
-        let modal:Modal = this.modalController.create(AddCashFlowPage, {wallet: this.wallet});
-        modal.present();
-        modal.onDidDismiss((data:{wallet:Wallet, cashFlow:CashFlow}) => {
-            this.wallet = data.wallet;
-            this.cashFlows.push(data.cashFlow);
+        this.modalService.show(AddCashFlowPage, {wallet: this.wallet});
+        this.modalService.onClose(() => {
+            this.getWallet();
+            this.getCashFlows();
         })
     }
 
@@ -85,12 +86,11 @@ export class CashFlowsPage implements OnInit{
     }
 
     modifyCashFlow (index:number) {
-        let modal:Modal = this.modalController.create(ModifyCashFlowPage,
+        this.modalService.show(ModifyCashFlowPage,
             {wallet: this.wallet, cashFlow: this.cashFlows[index]});
-        modal.present();
-        modal.onDidDismiss((data:{wallet:Wallet, cashFlow:CashFlow}) => {
-            this.wallet = data.wallet;
-            this.cashFlows[index] = data.cashFlow;
+        this.modalService.onClose(() => {
+           this.getWallet();
+           this.getCashFlows();
         })
     }
 }

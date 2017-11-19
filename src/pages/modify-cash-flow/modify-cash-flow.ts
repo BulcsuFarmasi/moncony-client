@@ -38,13 +38,12 @@ export class ModifyCashFlowPage implements OnInit{
 
     modifyCashFlow() {
         this.cashFlowService.modifyCashFlow(this.cashFlow)
-            .subscribe((cashFlow:CashFlow) => {
+            .then((cashFlow:CashFlow) => {
                 this.cashFlow = cashFlow;
                 this.wallet.amount = (this.oldCashFlowAmount - this.cashFlow.amount) * -1;
                 this.walletService.modifyWallet(this.wallet)
-                    .then((wallet:Wallet) => {
-                        this.wallet = wallet;
-                        this.viewController.dismiss({wallet:this.wallet, cashFlow: this.cashFlow})
+                    .then(() => {
+                        this.viewController.dismiss()
                     } );
             })
     }

@@ -38,8 +38,7 @@ export class WalletService{
 
     getWallet (id:number):Wallet {
          return this.wallets.find(wallet => wallet.id == id);
-
-;    }
+   }
 
     getWallets ():Wallet[] {
         return this.helperService.cloneArray(this.wallets);

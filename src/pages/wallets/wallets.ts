@@ -78,7 +78,7 @@ export class WalletsPage  {
     }
 
     goToCashFlows(index:number) {
-        this.navController.push(CashFlowsPage, {wallet: this.wallets[index]});
+        this.navController.push(CashFlowsPage, {walletId: this.wallets[index].id});
     }
 
     modifyWallet(index:number) {
