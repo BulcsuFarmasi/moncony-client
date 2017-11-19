@@ -17,17 +17,13 @@ export class WalletService{
     constructor(private storageService:StorageService,
                 private helperService: HelperService){}
 
-    addWallet (wallet:Wallet):Observable<Wallet> {
+    addWallet (wallet:Wallet):Promise<Wallet> {
         const length = this.wallets.length;
         wallet.id = (length > 0) ? this.wallets[length - 1].id + 1 : 1;
-        console.log(wallet);
         this.wallets.push(wallet);
-        console.log(this.wallets);
-        return Observable.fromPromise(
-            this.storageService.set(this.storageKey, this.wallets).then(() => {
-                return wallet;
-            })
-        );
+        this.storageService.set(this.storageKey, this.wallets).then(() => {
+            return wallet;
+        });
     }
 
     getIndex (id:number) {

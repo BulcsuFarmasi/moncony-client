@@ -27,19 +27,19 @@ export class AddWalletPage implements OnInit{
 
     addWallet() {
         this.walletService.addWallet(this.wallet)
-            .switchMap((wallet:Wallet) => {
-                let cashFlow:CashFlow = {
-                    id:0,
+            .then((wallet:Wallet) => {
+                let cashFlow: CashFlow = {
+                    id: 0,
                     walletId: wallet.id,
                     amount: wallet.amount,
                     text: 'Kezdő összeg',
                     date: new Date()
-                }
-                return this.cashFlowService.addCashFlow(cashFlow)
+                };
+                this.cashFlowService.addCashFlow(cashFlow)
+                    .then(() => {
+                        this.viewController.dismiss();
+                    });
             })
-            .subscribe(() => {
-                this.viewController.dismiss(this.wallet);
-            });;
     }
 
     getWallet () {
