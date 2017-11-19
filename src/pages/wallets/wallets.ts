@@ -26,7 +26,7 @@ export class WalletsPage  {
 
     constructor(private walletService:WalletService, private cashFlowService: CashFlowService,
                 private alertService:AlertService, private navController:NavController,
-                private modalService:ModalService, private events:Events){}
+                private modalService:ModalService){}
 
     ionViewWillEnter () {
         this.getWallets();
@@ -79,7 +79,6 @@ export class WalletsPage  {
 
     goToCashFlows(index:number) {
         this.navController.push(CashFlowsPage, {wallet: this.wallets[index]});
-        this.returnFromCashFlows(index);
     }
 
     modifyWallet(index:number) {
@@ -89,10 +88,4 @@ export class WalletsPage  {
         })
     }
 
-    returnFromCashFlows(index:number) {
-        this.events.subscribe('wallet:modified',(wallet:Wallet) => {
-            this.wallets[index] = wallet;
-            this.getTotalAmount();
-        })
-    }
 }
