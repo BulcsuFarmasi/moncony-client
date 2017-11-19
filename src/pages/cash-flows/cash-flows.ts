@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import { Alert, AlertController, Modal, ModalController, NavParams } from 'ionic-angular';
+import {  Modal, ModalController, NavParams } from 'ionic-angular';
 
 import { Wallet } from '../../models/wallet';
 import { CashFlow } from '../../models/cash-flow';
@@ -8,6 +8,7 @@ import { CashFlow } from '../../models/cash-flow';
 import { AddCashFlowPage } from '../add-cash-flow/add-cash-flow'
 import { ModifyCashFlowPage } from "../modify-cash-flow/modify-cash-flow";
 
+import { AlertService } from '../../services/alert';
 import { CashFlowService } from '../../services/cash-flow';
 import { WalletService } from '../../services/wallet';
 
@@ -23,7 +24,7 @@ export class CashFlowsPage implements OnInit{
 
 
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService,
-                private navParams:NavParams, private alertController:AlertController,
+                private navParams:NavParams, private alertService:AlertService,
                 private modalController:ModalController){}
 
     ngOnInit () {
@@ -52,7 +53,7 @@ export class CashFlowsPage implements OnInit{
     }
 
     deleteCashFlow (index:number) {
-        let confirm:Alert = this.alertController.create({
+        this.alertService.show({
             title: 'Bevétel/Kiadás Törlése',
             message: 'Biztos hogy törlöni akarod ezt a bevételt/kiadást?',
             buttons:[
@@ -68,14 +69,13 @@ export class CashFlowsPage implements OnInit{
                                 let wallet = Object.assign({}, this.wallet);
                                 wallet.amount = this.cashFlows[index].amount * -1;
                                 this.walletService.modifyWallet(wallet)
-                                    .subscribe((wallet:Wallet) => this.wallet = wallet );
-                                this.cashFlows.splice(index, 1)
+                                    .then((wallet:Wallet) => this.wallet = wallet );
+                                this.getCashFlows();
                         });
                     }
                 }
             ]
         })
-        confirm.present();
     }
 
     loadCashFlows () {
