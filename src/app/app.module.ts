@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AddCashFlowComponent } from '../components/add-cash-flow/add-cash-flow'
 
 import { CashFlowService } from '../services/cash-flow';
+import { HelperService } from '../services/helper';
 import { WalletService } from '../services/wallet';
 import { StorageService } from '../services/storage';
 
@@ -57,6 +58,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CashFlowService,
+    HelperService,
     StorageService,
     WalletService
   ]
