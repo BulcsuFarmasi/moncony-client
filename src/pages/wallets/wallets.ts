@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {Alert, AlertController, Events, Modal, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Alert, AlertController, Events, Modal, NavController } from 'ionic-angular';
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
@@ -8,6 +8,7 @@ import { CashFlow } from '../../models/cash-flow';
 import { Wallet } from '../../models/wallet';
 
 import { CashFlowService } from '../../services/cash-flow';
+import { ModalService } from '../../services/modal';
 import { WalletService } from '../../services/wallet';
 
 import { AddWalletPage } from '../add-wallet/add-wallet';
@@ -25,7 +26,7 @@ export class WalletsPage  {
 
     constructor(private walletService:WalletService, private cashFlowService: CashFlowService,
                 private alertController:AlertController, private navController:NavController, 
-                private modalController:ModalController, private events:Events){}
+                private modalService:ModalService, private events:Events){}
 
     ionViewWillEnter () {
         this.getWallets();
@@ -33,11 +34,10 @@ export class WalletsPage  {
     }
 
     addWallet() {
-        let modal:Modal = this.modalController.create(AddWalletPage);
-        modal.present();
-        modal.onDidDismiss((wallet:Wallet) => {
-            this.wallets.push(wallet);
-            this.getTotalAmount();
+        this.modalService.show(AddWalletPage);
+        console.log(this.modalService.show, this.modalService.onClose);
+        this.modalService.onClose(() =>  {
+            this.getWallets();
         })
     }
 

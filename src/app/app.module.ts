@@ -12,6 +12,7 @@ import { AddCashFlowComponent } from '../components/add-cash-flow/add-cash-flow'
 
 import { CashFlowService } from '../services/cash-flow';
 import { HelperService } from '../services/helper';
+import { ModalService } from '../services/modal';
 import { WalletService } from '../services/wallet';
 import { StorageService } from '../services/storage';
 
@@ -59,6 +60,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CashFlowService,
     HelperService,
+    ModalService,
     StorageService,
     WalletService
   ]

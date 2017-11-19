@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 
-import { Modal, ModalController, ViewController } from 'ionic-angular';
+import { Modal, ModalController } from 'ionic-angular';
 
 @Injectable()
 export class ModalService {
 
-    constructor (private  modalController:ModalController,
-                 private  viewController:ViewController) {}
+    private modal:Modal;
 
-    close () {
-        this.viewController.dismiss();
+    constructor (private  modalController:ModalController) {}
+
+    onClose (callback) {
+        this.modal.onDidDismiss(callback);
     }
 
-    show (page:any, data:any) {
-        let modal:Modal = this.modalController.create(page, data);
-        modal.present();
+    show (page:any, data?:any) {
+        this.modal = this.modalController.create(page, data);
+        this.modal.present();
     }
-
 
 }
