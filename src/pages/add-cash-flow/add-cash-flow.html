@@ -4,5 +4,6 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <add-cash-flow [wallets]="[wallet]" (formSubmit)="closeModal()"></add-cash-flow>
+    <add-cash-flow [wallets]="[wallet]" [isModal]="true" (formSubmit)="closeModal()"></add-cash-flow>
+    <button ion-button color="danger" (click)="closeModal()">Vissza</button>
 </ion-content>

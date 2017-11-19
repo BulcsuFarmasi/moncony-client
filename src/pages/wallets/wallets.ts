@@ -35,7 +35,6 @@ export class WalletsPage  {
 
     addWallet() {
         this.modalService.show(AddWalletPage);
-        console.log(this.modalService.show, this.modalService.onClose);
         this.modalService.onClose(() =>  {
             this.getWallets();
             this.getTotalAmount();

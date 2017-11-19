@@ -16,6 +16,7 @@ import { WalletService } from "../../services/wallet";
 export class AddCashFlowComponent implements OnChanges {
 
     @Input() wallets:Wallet[];
+    @Input() isModal:boolean
     @Output() formSubmit:EventEmitter<any> = new EventEmitter();
     public cashFlow:CashFlow;
     public cashFlowType:number = 1;
@@ -34,11 +35,13 @@ export class AddCashFlowComponent implements OnChanges {
         this.cashFlowService.addCashFlow(this.cashFlow)
             .then((cashFlow:CashFlow) => {
                 this.cashFlow = cashFlow;
-                console.log(this.cashFlow);
                 this.wallet.amount = this.cashFlow.amount;
                 this.walletService.modifyWallet(this.wallet)
                     .then(() => {
                         form.reset();
+                        if(this.isModal){
+                            this.formSubmit.emit();
+                        }
                     });
             })
     }
