@@ -22,16 +22,21 @@ export class ModifyWalletPage implements OnInit{
         this.getWallet();
     }
 
+    dismiss () {
+        this.viewController.dismiss();
+    }
+
 
     getWallet () {
         this.wallet = this.navParams.get('wallet');
     }
 
     modifyWallet() {
+        console.log(this.wallet);
         this.wallet.amount = 0;
         this.walletService.modifyWallet(this.wallet)
             .then(() => {
-            this.viewController.dismiss();
+            this.dismiss();
         });
     }
 }

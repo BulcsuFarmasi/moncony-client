@@ -4,7 +4,18 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <p><label for="text">Szöveg</label><br />
-    <input type="text" id="text" [(ngModel)]="wallet.name" /></p>
-    <p><input type="submit" value="Küldés" (click)="modifyWallet()" ></p>
+    <form (ngSubmit)="modifyWallet()">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Név</ion-label>
+                <ion-input type="text" id="name" name="name" [(ngModel)]="wallet.name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <button ion-button type="submit">Küldés</button>
+            </ion-item>
+            <ion-item>
+                <button ion-button type="button" color="danger" (click)="dismiss()">Vissza</button>
+            </ion-item>
+        </ion-list>
+    </form>
 </ion-content>
