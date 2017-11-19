@@ -53,6 +53,7 @@ export class WalletService{
 
     loadWallets ():Promise<Wallet[]> {
         return this.storageService.get(this.storageKey).then((wallets:Wallet[]) => {
+            wallets = wallets || [];
             wallets = wallets.map((wallet:Wallet) => {
                 wallet.amount *= 1;
                 return wallet;
@@ -64,10 +65,7 @@ export class WalletService{
 
     modifyWallet (wallet:Wallet):Promise<Wallet> {
         let index = this.getIndex(wallet.id);
-        console.log(this.wallets);
-        console.log(this.wallets[index]);
         wallet.amount = this.wallets[index].amount + wallet.amount;
-        console.log(wallet);
         this.wallets[index] = wallet;
         return this.storageService.set(this.storageKey, this.wallets).then(() => wallet);
     }
