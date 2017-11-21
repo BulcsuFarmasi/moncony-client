@@ -38,6 +38,7 @@ export class CashFlowsPage implements OnInit{
 
     getCashFlows () {
         this.cashFlows = this.cashFlowService.getCashFlowsByWalletId(this.wallet.id);
+        console.log(this.cashFlows);
     }
 
     getWallet () {

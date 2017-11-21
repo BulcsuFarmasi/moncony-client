@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { CashFlow } from '../models/cash-flow'
 
+import { HelperService } from './helper';
 import { StorageService } from './storage'
 
 @Injectable()
@@ -12,14 +13,14 @@ import { StorageService } from './storage'
 export class CashFlowService {
     private cashFlows:CashFlow[] = [];
     private storageKey:string = 'cashFlows';
-    constructor(private storageService:StorageService){}
+    constructor(private helperService:HelperService,private storageService:StorageService){}
 
     addCashFlow(cashFlow:CashFlow):Promise<CashFlow> {
         const length = this.cashFlows.length;
         cashFlow.id = (length > 0) ? this.cashFlows[length - 1].id + 1  : 1;
-        this.cashFlows.push(cashFlow);
+        this.cashFlows.push(this.helperService.copy(cashFlow));
         return this.storageService.set(this.storageKey, this.cashFlows).then(() => {
-                return cashFlow;
+                return this.helperService.copy(cashFlow);
         })
     }
 
