@@ -19,7 +19,7 @@ export class AddCashFlowComponent implements OnChanges {
     @Input() isModal:boolean
     @Output() formSubmit:EventEmitter<any> = new EventEmitter();
     public cashFlow:CashFlow;
-    public cashFlowType:number = 1;
+    public cashFlowType:number = -1;
     private wallet:Wallet;
 
     constructor(private cashFlowService:CashFlowService, private walletService:WalletService){}
