@@ -15,7 +15,6 @@ import { WalletService } from '../../services/wallet';
 
 export class AddWalletPage implements OnInit{
 
-    public cashFlow:CashFlow;
     public wallet:Wallet;
 
     constructor (private cashFlowService:CashFlowService, private walletService:WalletService,
