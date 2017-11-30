@@ -17,8 +17,7 @@ export class HomePage implements OnInit{
 
     public wallets:Wallet[];
 
-    constructor(private walletService:WalletService, private navController:NavController,
-                private events:Events){}
+    constructor(private walletService:WalletService, private navController:NavController){}
 
     ngOnInit(){
         this.loadWallets();
@@ -34,7 +33,6 @@ export class HomePage implements OnInit{
 
     goToWallets () {
         this.navController.push(WalletsPage);
-        this.returnFromWallets();
     }
 
     loadWallets () {
@@ -43,13 +41,4 @@ export class HomePage implements OnInit{
         );
     }
 
-    returnFromWallets () {
-       this.events.subscribe('wallets:modified',(wallets:Wallet[]) => {
-           this.wallets = wallets;
-       })
-    }
-
-    setWallets (wallets:Wallet[]) {
-        this.wallets = wallets;
-    }
 }

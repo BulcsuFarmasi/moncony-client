@@ -39,6 +39,7 @@ export class AddCashFlowComponent implements OnChanges {
                 this.walletService.modifyWallet(this.wallet)
                     .then(() => {
                         form.reset();
+                        this.cashFlowType = -1;
                         if(this.isModal){
                             this.formSubmit.emit();
                         }

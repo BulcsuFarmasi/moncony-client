@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Events, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 import { CashFlowsPage } from '../cash-flows/cash-flows'
 
