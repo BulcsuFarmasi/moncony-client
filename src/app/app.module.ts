@@ -21,6 +21,7 @@ import { AddCashFlowPage } from '../pages/add-cash-flow/add-cash-flow';
 import { AddWalletPage } from '../pages/add-wallet/add-wallet';
 import { CashFlowsPage } from '../pages/cash-flows/cash-flows';
 import { HomePage } from '../pages/home/home'
+import { LogInPage } from '../pages/log-in/log-in'
 import { ModifyCashFlowPage } from '../pages/modify-cash-flow/modify-cash-flow';
 import { ModifyWalletPage } from '../pages/modify-wallet/modify-wallet';
 import { WalletsPage } from '../pages/wallets/wallets';
@@ -33,6 +34,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
     AddWalletPage,
     CashFlowsPage,
     HomePage,
+    LogInPage,
     ModifyCashFlowPage,
     ModifyWalletPage,
     WalletsPage
@@ -51,6 +53,7 @@ import { WalletsPage } from '../pages/wallets/wallets';
     AddWalletPage,
     CashFlowsPage,
     HomePage,
+    LogInPage,
     ModifyCashFlowPage,
     ModifyWalletPage,
     WalletsPage

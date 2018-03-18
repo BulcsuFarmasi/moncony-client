@@ -52,7 +52,7 @@ export class CashFlowService {
         });
     }
 
-    modifyCashFlow (cashFlow) {
+    modifyCashFlow (cashFlow:CashFlow) {
         let index = this.getIndex(cashFlow.id);
         this.cashFlows[index] = cashFlow;
         return this.storageService.set(this.storageKey, this.cashFlows).then(() => cashFlow);
